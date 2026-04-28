@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ひらがな麻雀 オンライン Phase6 Claim Queue</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#20242b;color:#f5f5f5;user-select:none}.screen{min-height:100vh;padding:16px}.centerScreen{display:grid;place-items:center}.hidden{display:none!important}.card{width:min(800px,100%);background:#eef1f5;color:#171a20;border:3px solid #ffcf40;border-radius:24px;padding:26px;box-shadow:0 18px 50px rgba(0,0,0,.35)}h1{margin:0 0 20px;text-align:center;font-size:clamp(36px,6vw,64px);letter-spacing:.08em}h2{margin:0 0 14px;font-size:28px}label{display:grid;gap:8px;font-size:18px;font-weight:900;margin:12px 0}input{padding:14px 16px;border:2px solid #9aa3b2;border-radius:14px;font-size:22px;font-weight:900}button{border:0;border-radius:14px;padding:14px 18px;font-size:18px;font-weight:900;background:#f4f7fb;color:#171a20;cursor:pointer;box-shadow:0 4px 0 #9aa3b2}button:disabled{opacity:.4;cursor:not-allowed}button:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #9aa3b2}.good{background:#68e18c}.blue{background:#78b7ff}.danger{background:#ff7676}.yellow{background:#ffcf40}.buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.box{background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:16px}.row{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}.inlineInput{width:110px;text-align:center}.status{margin-top:14px;padding:10px 12px;border-radius:12px;background:#303746;color:#fff;font-weight:800;line-height:1.45;word-break:break-all}.participants{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.participant{background:#303746;color:#fff;border-radius:14px;padding:12px;display:flex;justify-content:space-between;gap:10px;font-weight:900}.gameRoot{min-height:100vh;display:grid;grid-template-rows:auto auto 1fr auto auto auto;gap:12px}.topbar,.actions,.judgePanel,.resultPanel,.claimTimer{background:#2d333d;border:1px solid #4a5361;border-radius:16px;padding:12px;box-shadow:0 8px 20px rgba(0,0,0,.22)}.topbar{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center}.mainStatus{font-size:20px;font-weight:900;line-height:1.4}.smallInfo{color:#d6d9df;font-weight:800;white-space:nowrap}.claimTimer{display:none;text-align:center;border-color:#ffcf40;background:#3a3140}.claimTimer.show{display:block}.claimTimerMain{font-size:28px;font-weight:1000;color:#ffcf40}.claimTimerSub{font-size:15px;font-weight:900;color:#f3f4f6;margin-top:4px}.players{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.player{background:#eef1f5;color:#171a20;border-radius:16px;padding:12px;border:3px solid transparent;display:grid;grid-template-rows:auto auto 1fr;gap:10px;min-height:280px}.player.turn{border-color:#ffcf40;box-shadow:0 0 0 2px rgba(255,207,64,.3),0 0 28px rgba(255,207,64,.35)}.player.me{border-color:#78b7ff}.player.winner{border-color:#68e18c;box-shadow:0 0 0 2px rgba(104,225,140,.3),0 0 28px rgba(104,225,140,.35)}.playerHeader{display:flex;justify-content:space-between;gap:8px;font-weight:1000}.badge{background:#303746;color:#fff;border-radius:999px;padding:3px 8px;font-size:12px;white-space:nowrap}.section{background:rgba(0,0,0,.06);border-radius:12px;padding:10px;border:1px solid rgba(0,0,0,.08);min-height:74px}.sectionTitle{font-size:13px;font-weight:900;letter-spacing:.04em;color:#465163;margin-bottom:7px}.tileRow{display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start;align-items:center}.meldGroup{display:flex;flex-wrap:nowrap;gap:4px;align-items:center;background:rgba(255,255,255,.78);border-radius:12px;padding:6px;border:1px solid rgba(0,0,0,.08)}.meldGroup.reorderable{outline:2px dashed rgba(120,183,255,.75);outline-offset:2px}.tile{width:42px;height:50px;border-radius:8px;border:1px solid #9ca3af;background:linear-gradient(#fff,#e9edf3);color:#111827;display:grid;place-items:center;font-size:24px;font-weight:900;box-shadow:0 3px 0 #b9c0cb;cursor:pointer;touch-action:manipulation}.tile.small{width:38px;height:46px;font-size:22px;cursor:default;box-shadow:0 2px 0 #b9c0cb}.tile.mini{width:30px;height:38px;font-size:18px;cursor:default;box-shadow:0 2px 0 #b9c0cb}.tile.myTile{width:58px;height:72px;border-radius:12px;font-size:34px;box-shadow:0 5px 0 #b9c0cb}.tile.separator{width:26px;background:transparent;border:0;border-bottom:7px solid #ffcf40;border-radius:0;box-shadow:none;color:transparent}.tile.separator.myTile{width:42px;height:72px;border-bottom-width:9px}.tile.separator.mini{width:22px;height:38px;border-bottom-width:5px}.tile.separator.small{width:24px;height:46px;border-bottom-width:5px}.tile.selected{outline:4px solid #ffcf40;transform:translateY(-4px)}.tile.separator.selected{outline:3px solid #78b7ff;outline-offset:4px;transform:translateY(-4px)}.tile.ponSelected{outline:4px solid #78b7ff;background:linear-gradient(#e8f3ff,#b8dcff);transform:translateY(-4px)}.tile.kanSelected{outline:4px solid #ffcf40;background:linear-gradient(#fff4b8,#ffd64f);transform:translateY(-4px)}.tile.dragging{opacity:.35}.tile.dragOver{outline:4px solid #78b7ff}.tile.claimTarget{background:linear-gradient(#ffb2b2,#ff5f5f);border-color:#a40000;color:#240000;box-shadow:0 3px 0 #8f0000,0 0 16px rgba(255,80,80,.85)}.myHandPanel{background:#eef1f5;color:#171a20;border:3px solid #ffcf40;border-radius:18px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.28),0 0 28px rgba(255,207,64,.25)}.myHandHeader{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px;font-size:18px;font-weight:1000}.myHand{display:flex;flex-wrap:wrap;gap:9px;align-content:flex-start;min-height:104px;background:rgba(255,255,255,.72);border-radius:14px;padding:12px;outline:2px dashed rgba(255,207,64,.8);outline-offset:3px}.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.spacer{flex:1 1 auto}.judgePanel{display:none;gap:10px}.judgePanel.show{display:grid}.judgeTitle{font-size:22px;font-weight:1000}.judgeHelp{color:#dce1ea;font-weight:800;line-height:1.5}.judgeHand{display:flex;flex-wrap:wrap;gap:7px;background:rgba(255,255,255,.1);border-radius:12px;padding:10px}.judgeMeldTitle{width:100%;margin-top:10px;font-weight:1000;color:#fff}.voteRows{display:grid;gap:8px}.voteRow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;color:#fff;font-weight:900}.voteActions{display:flex;flex-wrap:wrap;gap:8px}.resultPanel{display:none;text-align:center;background:#eef1f5;color:#171a20;border:4px solid #ffcf40}.resultPanel.show{display:grid;gap:12px}.winnerTitle{font-size:clamp(30px,4vw,52px);font-weight:1000}.winnerSub{font-size:20px;font-weight:900;color:#465163}.cutInOverlay{position:fixed;inset:0;display:none;place-items:center;z-index:9999;pointer-events:none;background:rgba(0,0,0,.12)}.cutInOverlay.show{display:grid}.cutInText{min-width:min(720px,86vw);text-align:center;font-size:clamp(72px,15vw,180px);font-weight:1000;letter-spacing:.12em;color:#fff;text-shadow:0 8px 0 #111827,0 0 24px rgba(255,207,64,.95),0 0 54px rgba(255,80,80,.75);animation:cutInPop 2s ease-out forwards;transform:rotate(-7deg) scale(.72)}.cutInText.igi{color:#ffef5a;text-shadow:0 8px 0 #7f0000,0 0 24px rgba(255,90,90,.95),0 0 54px rgba(255,0,0,.8)}@keyframes cutInPop{0%{opacity:0;transform:rotate(-10deg) scale(.45);filter:blur(6px)}12%{opacity:1;transform:rotate(-7deg) scale(1.18);filter:blur(0)}24%{transform:rotate(-7deg) scale(1)}78%{opacity:1;transform:rotate(-7deg) scale(1)}100%{opacity:0;transform:rotate(-7deg) scale(1.08)}}@media(max-width:1100px){.players{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar{grid-template-columns:1fr}.smallInfo{white-space:normal}}@media(max-width:640px){.buttons{grid-template-columns:1fr}.participants{grid-template-columns:1fr}.players{grid-template-columns:1fr}.voteRow{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div id="cutInOverlay" class="cutInOverlay"><div id="cutInText" class="cutInText"></div></div>
+
+  <section id="titleScreen" class="screen centerScreen">
+    <div class="card">
+      <h1>ひらがな麻雀</h1>
+      <label>自分の名前<input id="nameInput" value="あなた" maxlength="12" /></label>
+      <label>部屋ID<input id="roomInput" value="testroom" maxlength="32" /></label>
+      <div class="buttons"><button id="hostBtn" class="good">ホスト</button><button id="joinBtn" class="blue">参加</button></div>
+      <div id="titleStatus" class="status">未接続</div>
+    </div>
+  </section>
+
+  <section id="lobbyScreen" class="screen centerScreen hidden">
+    <div class="card">
+      <h2>待機画面</h2>
+      <div class="box"><div class="row"><strong>部屋ID</strong><span id="roomLabel">-</span></div><div class="row"><strong>接続状態</strong><span id="connectionLabel">-</span></div></div>
+      <div class="box" style="margin-top:14px;"><div class="row"><strong>現在の参加者</strong><span id="countLabel">0人</span></div><div id="participants" class="participants"></div></div>
+      <div class="box" style="margin-top:14px;"><div class="row"><strong>何点取ったら勝ち</strong><input id="targetScoreInput" class="inlineInput" type="number" min="1" max="20" value="3" /></div></div>
+      <div class="box" style="margin-top:14px;"><div class="row"><strong>ロン/ポン受付時間</strong><span><input id="reactionSecondsInput" class="inlineInput" type="number" min="1" max="15" value="5" /> 秒</span></div></div>
+      <div class="buttons"><button id="addCpuBtn" class="blue">CPUを追加</button><button id="startGameBtn" class="good">ゲームスタート</button><button id="backTitleBtn">タイトルへ</button><button id="disconnectBtn" class="danger">切断</button></div>
+      <div id="lobbyStatus" class="status">待機中</div>
+    </div>
+  </section>
+
+  <section id="gameScreen" class="screen hidden">
+    <div class="gameRoot">
+      <div class="topbar"><div id="gameStatus" class="mainStatus">対局中</div><div id="wallInfo" class="smallInfo">山: -</div><div id="lastDiscardInfo" class="smallInfo">直前: -</div></div>
+      <div id="claimTimer" class="claimTimer"><div id="claimTimerMain" class="claimTimerMain"></div><div id="claimTimerSub" class="claimTimerSub"></div></div>
+      <div id="players" class="players"></div>
+      <div class="actions">
+        <button id="discardBtn">出す</button>
+        <button id="ponBtn" class="blue">ポン</button>
+        <button id="kanBtn" class="yellow">カン</button>
+        <button id="separatorAddBtn" class="yellow">区切り追加</button>
+        <button id="separatorRemoveBtn">区切り削除</button>
+        <button id="tsumoBtn" class="good">ツモ上がり</button>
+        <button id="ronBtn" class="danger">ロン</button>
+        <button id="nextRoundBtn" class="good">次のラウンドへ</button>
+        <button id="backLobbyFromGameBtn" class="blue">待機へ戻る</button>
+        <span class="spacer"></span>
+        <button id="disconnectFromGameBtn" class="danger">切断</button>
+      </div>
+      <div class="myHandPanel"><div class="myHandHeader"><span id="myHandTitle">自分の手札</span><span id="myTurnLabel">-</span></div><div id="myHand" class="myHand"></div></div>
+      <div id="judgePanel" class="judgePanel"><div id="judgeTitle" class="judgeTitle"></div><div class="judgeHelp">公開手札を見て、上がりかどうかを全員で判断してください。区切り牌と鳴き枠も表示されます。</div><div id="judgeHand" class="judgeHand"></div><div id="voteRows" class="voteRows"></div></div>
+      <div id="resultPanel" class="resultPanel"><div id="winnerTitle" class="winnerTitle"></div><div id="winnerSub" class="winnerSub"></div><div class="buttons"><button id="rematchBtn" class="good">もう一度</button><button id="backLobbyResultBtn" class="blue">待機へ戻る</button></div></div>
+    </div>
+  </section>
+
+  <script>
+    const WS_BASE_LOCAL = "ws://127.0.0.1:8787/ws/";
+    // Cloudflare Workersへデプロイ後、下のURLを実際の workers.dev URL に置き換えてください。
+    // 例: "wss://hiragajan-ws.xxxxx.workers.dev/ws/"
+    const WS_BASE_PROD = "wss://hiragajan-ws.ここを自分のworkers.devに置き換え.workers.dev/ws/";
+    const el = {
+      cutInOverlay: document.getElementById("cutInOverlay"), cutInText: document.getElementById("cutInText"),
+      titleScreen: document.getElementById("titleScreen"), lobbyScreen: document.getElementById("lobbyScreen"), gameScreen: document.getElementById("gameScreen"),
+      nameInput: document.getElementById("nameInput"), roomInput: document.getElementById("roomInput"), hostBtn: document.getElementById("hostBtn"), joinBtn: document.getElementById("joinBtn"), titleStatus: document.getElementById("titleStatus"),
+      roomLabel: document.getElementById("roomLabel"), connectionLabel: document.getElementById("connectionLabel"), countLabel: document.getElementById("countLabel"), participants: document.getElementById("participants"), targetScoreInput: document.getElementById("targetScoreInput"), reactionSecondsInput: document.getElementById("reactionSecondsInput"),
+      addCpuBtn: document.getElementById("addCpuBtn"), startGameBtn: document.getElementById("startGameBtn"), backTitleBtn: document.getElementById("backTitleBtn"), disconnectBtn: document.getElementById("disconnectBtn"), lobbyStatus: document.getElementById("lobbyStatus"),
+      gameStatus: document.getElementById("gameStatus"), wallInfo: document.getElementById("wallInfo"), lastDiscardInfo: document.getElementById("lastDiscardInfo"), claimTimer: document.getElementById("claimTimer"), claimTimerMain: document.getElementById("claimTimerMain"), claimTimerSub: document.getElementById("claimTimerSub"), players: document.getElementById("players"),
+      discardBtn: document.getElementById("discardBtn"), ponBtn: document.getElementById("ponBtn"), kanBtn: document.getElementById("kanBtn"), separatorAddBtn: document.getElementById("separatorAddBtn"), separatorRemoveBtn: document.getElementById("separatorRemoveBtn"), tsumoBtn: document.getElementById("tsumoBtn"), ronBtn: document.getElementById("ronBtn"), nextRoundBtn: document.getElementById("nextRoundBtn"), backLobbyFromGameBtn: document.getElementById("backLobbyFromGameBtn"), disconnectFromGameBtn: document.getElementById("disconnectFromGameBtn"),
+      myHandTitle: document.getElementById("myHandTitle"), myTurnLabel: document.getElementById("myTurnLabel"), myHand: document.getElementById("myHand"),
+      judgePanel: document.getElementById("judgePanel"), judgeTitle: document.getElementById("judgeTitle"), judgeHand: document.getElementById("judgeHand"), voteRows: document.getElementById("voteRows"),
+      resultPanel: document.getElementById("resultPanel"), winnerTitle: document.getElementById("winnerTitle"), winnerSub: document.getElementById("winnerSub"), rematchBtn: document.getElementById("rematchBtn"), backLobbyResultBtn: document.getElementById("backLobbyResultBtn")
+    };
+    const state = { ws: null, playerId: null, roomId: "testroom", serverState: null, connected: false, selectedTileId: null, selectedPonTileIds: [], selectedKanTileIds: [], kanMode: false, lastCutInKey: "", cutInTimer: null, meldDrag: null, handDrag: null, countdownTimer: null };
+
+    function normalizeName(value) { const text = String(value || "").trim(); return text ? text.slice(0, 12) : "あなた"; }
+    function normalizeRoom(value) { const text = String(value || "").trim().replace(/[^a-zA-Z0-9_-]/g, ""); return text ? text.slice(0, 32) : "testroom"; }
+    function setScreen(screen) { el.titleScreen.classList.toggle("hidden", screen !== "title"); el.lobbyScreen.classList.toggle("hidden", screen !== "lobby"); el.gameScreen.classList.toggle("hidden", screen !== "game"); }
+    function getWsBase() {
+      const isLocalFile = location.protocol === "file:";
+      const isLocalHost = location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "";
+      return (isLocalFile || isLocalHost) ? WS_BASE_LOCAL : WS_BASE_PROD;
+    }
+    function applyUrlParams() {
+      const params = new URLSearchParams(location.search);
+      const room = params.get("room");
+      const name = params.get("name");
+      if (room) el.roomInput.value = normalizeRoom(room);
+      if (name) el.nameInput.value = normalizeName(name);
+    }
+    function isSeparator(item) { return (item?.kind || "tile") === "separator"; }
+    function itemText(item) { return typeof item === "string" ? item : (item?.text || ""); }
+    function itemKind(item) { return typeof item === "string" ? "tile" : (item?.kind || "tile"); }
+    function selectedItem() { return state.serverState?.myHand?.find(x => x.id === state.selectedTileId) || null; }
+    function selectedIsSeparator() { return isSeparator(selectedItem()); }
+    function activeOwnHandControls() { const s = state.serverState; return Boolean(s && s.phase !== "lobby" && s.phase !== "round_over"); }
+    function claimWindowActive() { return Boolean(state.serverState?.claimWindow); }
+    function declaredRon() { const s = state.serverState; return Boolean(s?.claimWindow?.ronClaimantIds?.includes(state.playerId)); }
+    function declaredPon() { const s = state.serverState; return Boolean(s?.claimWindow?.ponClaimantIds?.includes(state.playerId)); }
+    function declaredAnyClaim() { return declaredRon() || declaredPon(); }
+
+    function connectAs() {
+      disconnect(false);
+      state.roomId = normalizeRoom(el.roomInput.value);
+      el.roomInput.value = state.roomId;
+      const name = normalizeName(el.nameInput.value);
+      el.nameInput.value = name;
+      const url = getWsBase() + encodeURIComponent(state.roomId);
+      el.titleStatus.textContent = `接続中: ${url}`;
+      const ws = new WebSocket(url);
+      state.ws = ws;
+      ws.onopen = () => { state.connected = true; setScreen("lobby"); setLobbyStatus("接続成功。join を送信しました。"); send({ t: "join", name }); };
+      ws.onmessage = event => {
+        let message;
+        try { message = JSON.parse(event.data); } catch { setLobbyStatus("サーバーから不正なJSONを受信しました。"); return; }
+        if (message.t === "hello") { state.playerId = message.playerId; setLobbyStatus(`接続ID: ${state.playerId}`); return; }
+        if (message.t === "state") {
+          const previous = state.serverState;
+          state.serverState = message.state;
+          if (state.selectedTileId && !message.state.myHand?.some(tile => tile.id === state.selectedTileId)) state.selectedTileId = null;
+          state.selectedPonTileIds = state.selectedPonTileIds.filter(id => message.state.myHand?.some(tile => tile.id === id && !isSeparator(tile)));
+          state.selectedKanTileIds = state.selectedKanTileIds.filter(id => message.state.myHand?.some(tile => tile.id === id && !isSeparator(tile)));
+          maybeShowStateCutIn(previous, message.state);
+          renderByPhase();
+          return;
+        }
+        if (message.t === "error") showError(message.message);
+      };
+      ws.onerror = () => { el.titleStatus.textContent = "WebSocketエラー。Wranglerが起動中か確認してください。"; setLobbyStatus("WebSocketエラー。Wranglerが起動中か確認してください。"); };
+      ws.onclose = () => { state.connected = false; renderByPhase(); el.titleStatus.textContent = "切断されました。再接続してください。"; };
+    }
+
+    function disconnect(goTitle = true) {
+      if (state.ws) { try { state.ws.close(); } catch {} }
+      state.ws = null; state.connected = false; state.serverState = null; state.playerId = null; state.selectedTileId = null; state.selectedPonTileIds = []; state.selectedKanTileIds = []; state.kanMode = false; state.lastCutInKey = "";
+      updateClaimTimer();
+      if (goTitle) setScreen("title");
+    }
+    function send(payload) { if (!state.ws || state.ws.readyState !== WebSocket.OPEN) { showError("未接続です。"); return false; } state.ws.send(JSON.stringify(payload)); return true; }
+    function getMe() { const s = state.serverState; if (!s || !state.playerId) return null; return s.players.find(p => p.playerId === state.playerId) || null; }
+    function isHost() { return Boolean(getMe()?.isHost); }
+    function isMyTurn() { const s = state.serverState; return Boolean(s && s.currentPlayerId === state.playerId && s.phase === "play" && !isMyPendingPon() && !claimWindowActive()); }
+    function isMyPendingPon() { const s = state.serverState; return Boolean(s?.pendingPon && s.pendingPon.playerId === state.playerId); }
+    function isOtherPendingPon() { const s = state.serverState; return Boolean(s?.pendingPon && s.pendingPon.playerId !== state.playerId); }
+    function canRon() { const s = state.serverState; return Boolean(s && s.phase === "play" && s.claimWindow && !s.pendingPon && s.lastDiscarderId && s.lastDiscarderId !== state.playerId && !declaredAnyClaim()); }
+    function canPon() { const s = state.serverState; return Boolean(s && s.phase === "play" && s.claimWindow && !s.pendingPon && s.lastDiscarderId && s.lastDiscarderId !== state.playerId && !declaredAnyClaim() && s.myHand.filter(x => !isSeparator(x)).length >= 2); }
+    function canKan() { return Boolean(isMyTurn() && !isMyPendingPon() && !isOtherPendingPon()); }
+    function setLobbyStatus(text) { el.lobbyStatus.textContent = text; }
+    function showError(message) { const text = `エラー: ${message}`; setLobbyStatus(text); el.gameStatus.textContent = text; console.error(text); }
+
+    function renderByPhase() { const s = state.serverState; if (!s) { if (state.connected) setScreen("lobby"); updateClaimTimer(); return; } if (s.phase === "lobby") { setScreen("lobby"); renderLobby(); } else { setScreen("game"); renderGame(); } }
+    function renderLobby() {
+      const s = state.serverState;
+      el.roomLabel.textContent = state.roomId;
+      el.connectionLabel.textContent = state.connected ? "接続中" : "未接続";
+      updateClaimTimer();
+      if (!s) { el.countLabel.textContent = "0人"; el.participants.innerHTML = ""; el.addCpuBtn.disabled = true; el.startGameBtn.disabled = true; el.targetScoreInput.disabled = true; el.reactionSecondsInput.disabled = true; return; }
+      el.countLabel.textContent = `${s.players.length}人`;
+      el.targetScoreInput.value = s.targetScore;
+      el.targetScoreInput.disabled = !isHost() || s.phase !== "lobby";
+      el.reactionSecondsInput.value = s.reactionSeconds ?? 5;
+      el.reactionSecondsInput.disabled = !isHost() || s.phase !== "lobby";
+      el.addCpuBtn.disabled = !isHost() || s.phase !== "lobby" || s.players.length >= 4;
+      el.startGameBtn.disabled = !isHost() || s.phase !== "lobby" || s.players.length < 2;
+      el.addCpuBtn.textContent = s.players.length >= 4 ? "CPU追加上限" : "CPUを追加";
+      el.participants.innerHTML = "";
+      s.players.forEach(player => {
+        const item = document.createElement("div"); item.className = "participant";
+        const badges = [];
+        if (player.isHost) badges.push("ホスト"); if (player.isCpu) badges.push("CPU"); if (!player.connected) badges.push("切断"); if (player.playerId === state.playerId) badges.push("自分");
+        item.innerHTML = `<span>${escapeHtml(player.name)}</span><span>${badges.join(" / ") || "参加"}</span>`;
+        el.participants.appendChild(item);
+      });
+    }
+
+    function renderGame() {
+      const s = state.serverState; if (!s) return;
+      if (s.claimWindow) {
+        const rons = s.claimWindow.ronClaimantIds?.map(playerNameById).join("、") || "なし";
+        const pons = s.claimWindow.ponClaimantIds?.map(playerNameById).join("、") || "なし";
+        el.gameStatus.textContent = `ロン/ポン受付中です。ロン: ${rons} / ポン: ${pons}`;
+      } else if (s.pendingPon) {
+        const p = playerNameById(s.pendingPon.playerId);
+        el.gameStatus.textContent = isMyPendingPon() ? `ポン処理中です。自分の牌を${state.selectedPonTileIds.length}/2枚選んでください。未選択でもう一度ポンでキャンセル。` : `${p} がポン処理中です。`;
+      } else if (state.kanMode) {
+        el.gameStatus.textContent = `カン選択中です。${state.selectedKanTileIds.length}枚選択中。4枚以上選んで、もう一度カンを押してください。未選択でもう一度押すとキャンセル。`;
+      } else if (s.phase === "judge") {
+        const claimant = playerNameById(s.judge?.claimantId);
+        const queue = s.judge?.ronQueueTotal ? ` ${s.judge.ronQueueIndex}/${s.judge.ronQueueTotal}` : "";
+        el.gameStatus.textContent = `${claimant} が${s.judge?.claimType}宣言。ジャッジ中です。${queue}`;
+      } else if (s.phase === "round_over") {
+        el.gameStatus.textContent = s.roundMessage || "ラウンド終了";
+      } else {
+        const currentPlayer = s.players.find(p => p.playerId === s.currentPlayerId);
+        el.gameStatus.textContent = currentPlayer ? `${currentPlayer.name} の手番です${isMyTurn() ? "。1枚出してください。" : "。"}` : "対局中";
+      }
+      el.wallInfo.textContent = `山: ${s.wallCount}枚`;
+      el.lastDiscardInfo.textContent = s.lastDiscardTile ? `直前: ${s.lastDiscardTile} / ${playerNameById(s.lastDiscarderId)}` : "直前: なし";
+      updateClaimTimer();
+      renderPlayers(); renderMyHand(); renderGameActions(); renderJudge(); renderResult();
+    }
+
+    function updateClaimTimer() {
+      const cw = state.serverState?.claimWindow;
+      if (!cw) { el.claimTimer.classList.remove("show"); el.claimTimerMain.textContent = ""; el.claimTimerSub.textContent = ""; return; }
+      const remainingMs = Math.max(0, cw.endsAt - Date.now());
+      el.claimTimer.classList.add("show");
+      el.claimTimerMain.textContent = `ロン/ポン受付中　残り ${(remainingMs / 1000).toFixed(1)} 秒`;
+      const rons = cw.ronClaimantIds?.map(playerNameById).join("、") || "なし";
+      const pons = cw.ponClaimantIds?.map(playerNameById).join("、") || "なし";
+      el.claimTimerSub.textContent = `ロン宣言: ${rons}　/　ポン宣言: ${pons}`;
+    }
+    setInterval(updateClaimTimer, 100);
+
+    function renderPlayers() {
+      const s = state.serverState; el.players.innerHTML = "";
+      s.players.forEach(player => {
+        const panel = document.createElement("div"); panel.className = "player";
+        if (player.playerId === s.currentPlayerId && s.phase === "play") panel.classList.add("turn");
+        if (player.playerId === state.playerId) panel.classList.add("me");
+        if (player.playerId === s.matchWinnerId) panel.classList.add("winner");
+        const header = document.createElement("div"); header.className = "playerHeader";
+        const badges = [];
+        if (player.playerId === state.playerId) badges.push("自分"); if (player.isHost) badges.push("ホスト"); if (player.isCpu) badges.push("CPU"); if (player.playerId === s.currentPlayerId && s.phase === "play") badges.push("手番"); if (player.playerId === s.matchWinnerId) badges.push("勝利"); if (s.pendingPon?.playerId === player.playerId) badges.push("ポン処理中"); if (s.claimWindow?.ronClaimantIds?.includes(player.playerId)) badges.push("ロン宣言"); if (s.claimWindow?.ponClaimantIds?.includes(player.playerId)) badges.push("ポン宣言");
+        const sep = player.separatorCount ? ` / 区切り${player.separatorCount}` : "";
+        header.innerHTML = `<span>${escapeHtml(player.name)} / ${player.score}点 / 手牌${player.handCount}枚${sep}</span><span class="badge">${badges.join(" / ") || "待機"}</span>`;
+        panel.appendChild(header); panel.appendChild(createMeldSection(player)); panel.appendChild(createDiscardSection(player)); el.players.appendChild(panel);
+      });
+    }
+
+    function createMeldSection(player) {
+      const section = document.createElement("div"); section.className = "section"; section.innerHTML = `<div class="sectionTitle">鳴き / カン</div>`;
+      const row = document.createElement("div"); row.className = "tileRow";
+      if (!player.melds.length) row.textContent = "なし"; else player.melds.forEach(meld => row.appendChild(createMeldGroup(player, meld)));
+      section.appendChild(row); return section;
+    }
+    function createMeldGroup(player, meld) {
+      const group = document.createElement("div"); group.className = "meldGroup";
+      const reorderable = player.playerId === state.playerId;
+      if (reorderable) group.classList.add("reorderable");
+      meld.tiles.forEach((text, tileIndex) => {
+        const tile = makeTile({ text, kind: "tile" }, "mini");
+        if (reorderable) {
+          tile.draggable = true; tile.style.cursor = "grab";
+          tile.addEventListener("dragstart", event => { state.meldDrag = { meldId: meld.id, tileIndex }; event.dataTransfer.effectAllowed = "move"; event.dataTransfer.setData("text/plain", JSON.stringify(state.meldDrag)); tile.classList.add("dragging"); });
+          tile.addEventListener("dragover", event => { event.preventDefault(); event.dataTransfer.dropEffect = "move"; tile.classList.add("dragOver"); });
+          tile.addEventListener("dragleave", () => tile.classList.remove("dragOver"));
+          tile.addEventListener("drop", event => { event.preventDefault(); tile.classList.remove("dragOver"); let data = state.meldDrag; try { data = JSON.parse(event.dataTransfer.getData("text/plain")); } catch {} if (!data || data.meldId !== meld.id) return; send({ t: "reorder_meld", meldId: meld.id, fromIndex: data.tileIndex, toIndex: tileIndex }); });
+          tile.addEventListener("dragend", () => { state.meldDrag = null; tile.classList.remove("dragging"); });
+        }
+        group.appendChild(tile);
+      });
+      return group;
+    }
+    function createDiscardSection(player) {
+      const s = state.serverState;
+      const section = document.createElement("div"); section.className = "section"; section.innerHTML = `<div class="sectionTitle">捨て牌</div>`;
+      const row = document.createElement("div"); row.className = "tileRow";
+      if (!player.discards.length) row.textContent = "なし";
+      else player.discards.forEach((text, index) => { const tile = makeTile({ text, kind: "tile" }, "small"); const isClaimTarget = s.claimWindow && player.playerId === s.lastDiscarderId && index === player.discards.length - 1 && text === s.lastDiscardTile; if (isClaimTarget) tile.classList.add("claimTarget"); row.appendChild(tile); });
+      section.appendChild(row); return section;
+    }
+
+    function renderMyHand() {
+      const s = state.serverState;
+      const realCount = s.myHand.filter(x => !isSeparator(x)).length;
+      const sepCount = s.myHand.length - realCount;
+      const ponText = isMyPendingPon() ? ` / ポン選択中 ${state.selectedPonTileIds.length}/2` : "";
+      const kanText = state.kanMode ? ` / カン選択中 ${state.selectedKanTileIds.length}枚` : "";
+      const sepText = sepCount ? ` / 区切り${sepCount}` : "";
+      el.myHandTitle.textContent = `自分の手札 ${realCount}枚${sepText}${ponText}${kanText}`;
+      el.myTurnLabel.textContent = isMyPendingPon() ? "ポン選択中" : state.kanMode ? "カン選択中" : isMyTurn() ? "あなたの手番" : s.phase === "judge" ? "ジャッジ中" : claimWindowActive() ? "受付中" : "待機中";
+      el.myHand.innerHTML = "";
+      s.myHand.forEach((tile, index) => {
+        const tileEl = makeTile(tile, "myTile");
+        if (isMyPendingPon() && state.selectedPonTileIds.includes(tile.id)) tileEl.classList.add("ponSelected");
+        else if (state.kanMode && state.selectedKanTileIds.includes(tile.id)) tileEl.classList.add("kanSelected");
+        else if (!isMyPendingPon() && !state.kanMode && tile.id === state.selectedTileId) tileEl.classList.add("selected");
+        tileEl.draggable = true;
+        tileEl.addEventListener("dragstart", event => { state.handDrag = { fromIndex: index }; event.dataTransfer.effectAllowed = "move"; event.dataTransfer.setData("text/plain", String(index)); tileEl.classList.add("dragging"); });
+        tileEl.addEventListener("dragover", event => { event.preventDefault(); event.dataTransfer.dropEffect = "move"; tileEl.classList.add("dragOver"); });
+        tileEl.addEventListener("dragleave", () => tileEl.classList.remove("dragOver"));
+        tileEl.addEventListener("drop", event => {
+          event.preventDefault(); tileEl.classList.remove("dragOver");
+          const fromIndex = Number(event.dataTransfer.getData("text/plain") || state.handDrag?.fromIndex);
+          if (!Number.isFinite(fromIndex) || fromIndex === index) return;
+          send({ t: "reorder_hand", fromIndex, toIndex: index });
+        });
+        tileEl.addEventListener("dragend", () => { state.handDrag = null; tileEl.classList.remove("dragging"); });
+        tileEl.addEventListener("click", () => {
+          if (isMyPendingPon()) {
+            if (isSeparator(tile)) { el.gameStatus.textContent = "区切り牌はポンに使えません。"; return; }
+            togglePonTile(tile.id);
+          } else if (state.kanMode) {
+            if (isSeparator(tile)) { el.gameStatus.textContent = "区切り牌はカンに使えません。"; return; }
+            toggleKanTile(tile.id);
+          } else {
+            state.selectedTileId = tile.id;
+          }
+          renderMyHand(); renderGameActions();
+        });
+        el.myHand.appendChild(tileEl);
+      });
+    }
+
+    function togglePonTile(tileId) { if (state.selectedPonTileIds.includes(tileId)) state.selectedPonTileIds = state.selectedPonTileIds.filter(id => id !== tileId); else { if (state.selectedPonTileIds.length >= 2) { el.gameStatus.textContent = "ポンで選べるのは2枚までです。"; return; } state.selectedPonTileIds = [...state.selectedPonTileIds, tileId]; } }
+    function toggleKanTile(tileId) { if (state.selectedKanTileIds.includes(tileId)) state.selectedKanTileIds = state.selectedKanTileIds.filter(id => id !== tileId); else state.selectedKanTileIds = [...state.selectedKanTileIds, tileId]; }
+
+    function renderGameActions() {
+      const s = state.serverState;
+      el.discardBtn.disabled = !(isMyTurn() && state.selectedTileId && !selectedIsSeparator() && !state.kanMode);
+      el.ronBtn.disabled = !canRon();
+      el.ronBtn.textContent = declaredRon() ? "ロン宣言済み" : "ロン";
+      el.ponBtn.disabled = !(isMyPendingPon() || canPon());
+      el.ponBtn.textContent = isMyPendingPon() ? `ポン実行 ${state.selectedPonTileIds.length}/2` : declaredPon() ? "ポン宣言済み" : "ポン";
+      el.kanBtn.disabled = !(state.kanMode || canKan());
+      el.kanBtn.textContent = state.kanMode ? `カン実行 ${state.selectedKanTileIds.length}枚` : "カン";
+      el.separatorAddBtn.disabled = !activeOwnHandControls() || isMyPendingPon() || isOtherPendingPon();
+      el.separatorRemoveBtn.disabled = !(activeOwnHandControls() && selectedIsSeparator() && !isMyPendingPon() && !state.kanMode);
+      el.tsumoBtn.disabled = !(isMyTurn() && !state.kanMode);
+      el.nextRoundBtn.disabled = !(isHost() && s.phase === "round_over" && !s.matchWinnerId);
+      el.backLobbyFromGameBtn.disabled = !isHost();
+      el.rematchBtn.disabled = !isHost();
+      el.backLobbyResultBtn.disabled = !isHost();
+      if (claimWindowActive() || isOtherPendingPon()) { el.discardBtn.disabled = true; el.kanBtn.disabled = true; el.tsumoBtn.disabled = true; }
+    }
+
+    function renderJudge() {
+      const s = state.serverState;
+      const show = s.phase === "judge" && s.judge;
+      el.judgePanel.classList.toggle("show", Boolean(show));
+      if (!show) { el.judgeTitle.textContent = ""; el.judgeHand.innerHTML = ""; el.voteRows.innerHTML = ""; return; }
+      const judge = s.judge;
+      const queueText = judge.ronQueueTotal ? ` (${judge.ronQueueIndex}/${judge.ronQueueTotal})` : "";
+      el.judgeTitle.textContent = `${playerNameById(judge.claimantId)} / ${judge.claimType}${queueText} / 公開手札`;
+      el.judgeHand.innerHTML = "";
+      judge.revealedHand.forEach(item => el.judgeHand.appendChild(makeTile(item, "")));
+      if (judge.revealedMelds?.length) {
+        const label = document.createElement("div"); label.className = "judgeMeldTitle"; label.textContent = "鳴き / カン"; el.judgeHand.appendChild(label);
+        judge.revealedMelds.forEach(meld => el.judgeHand.appendChild(createMeldGroup({ playerId: "_judge", melds: [] }, meld)));
+      }
+      el.voteRows.innerHTML = "";
+      judge.requiredVoterIds.forEach(voterId => {
+        const row = document.createElement("div"); row.className = "voteRow";
+        const vote = judge.votes[voterId] || "未投票";
+        row.innerHTML = `<div>${escapeHtml(playerNameById(voterId))}: ${escapeHtml(vote)}</div>`;
+        const actions = document.createElement("div"); actions.className = "voteActions";
+        if (voterId === state.playerId) { actions.appendChild(voteButton("上がり", "good")); actions.appendChild(voteButton("異議あり", "blue")); actions.appendChild(voteButton("ダメだろ", "danger")); }
+        else { const wait = document.createElement("span"); wait.textContent = "投票待ち"; actions.appendChild(wait); }
+        row.appendChild(actions); el.voteRows.appendChild(row);
+      });
+    }
+    function voteButton(vote, className) { const btn = document.createElement("button"); btn.className = className; btn.textContent = vote; btn.addEventListener("click", () => { if (vote === "異議あり") showCutIn("異議あり！！", "igi"); send({ t: "judge_vote", vote }); }); return btn; }
+    function renderResult() { const s = state.serverState; const show = s.phase === "round_over" && Boolean(s.matchWinnerId); el.resultPanel.classList.toggle("show", show); if (!show) { el.winnerTitle.textContent = ""; el.winnerSub.textContent = ""; return; } const winner = s.players.find(p => p.playerId === s.matchWinnerId); el.winnerTitle.textContent = `🏆 ${winner?.name || "不明"} の勝ち！`; el.winnerSub.textContent = `${winner?.score ?? "?"}点 / 勝利条件 ${s.targetScore}点`; }
+
+    function makeTile(item, extraClass = "") { const kind = itemKind(item); const div = document.createElement("div"); div.className = `tile ${kind === "separator" ? "separator" : ""} ${extraClass}`.trim(); div.textContent = kind === "separator" ? "" : itemText(item); div.title = kind === "separator" ? "区切り牌" : itemText(item); return div; }
+    function playerNameById(playerId) { const p = state.serverState?.players.find(x => x.playerId === playerId); return p ? p.name : "不明"; }
+
+    function maybeShowStateCutIn(previous, current) {
+      if (previous && current.roundMessage !== previous.roundMessage && current.roundMessage && current.roundMessage.includes("がカンしました")) {
+        const key = `kan:${current.roundMessage}`;
+        if (state.lastCutInKey !== key) { state.lastCutInKey = key; showCutIn("カン"); }
+      }
+      if (previous?.pendingPon && !current?.pendingPon) {
+        const ponPlayerId = previous.pendingPon.playerId;
+        const beforePlayer = previous.players.find(p => p.playerId === ponPlayerId);
+        const afterPlayer = current.players.find(p => p.playerId === ponPlayerId);
+        const beforeMeldCount = beforePlayer?.melds?.length ?? 0;
+        const afterMeldCount = afterPlayer?.melds?.length ?? 0;
+        if (afterMeldCount > beforeMeldCount) {
+          const key = `pon_done:${ponPlayerId}:${afterMeldCount}`;
+          if (state.lastCutInKey !== key) { state.lastCutInKey = key; showCutIn("ポン"); }
+        }
+        return;
+      }
+      if (!current?.judge) return;
+      const key = `${current.judge.claimantId}:${current.judge.claimType}:${current.judge.ronQueueIndex ?? "single"}`;
+      const previousKey = previous?.judge ? `${previous.judge.claimantId}:${previous.judge.claimType}:${previous.judge.ronQueueIndex ?? "single"}` : "";
+      if (key !== previousKey && state.lastCutInKey !== key) { state.lastCutInKey = key; showCutIn(current.judge.claimType === "ツモ" ? "ツモ" : "ロン"); }
+    }
+    function showCutIn(text, variant = "normal") { if (state.cutInTimer) clearTimeout(state.cutInTimer); el.cutInText.textContent = text; el.cutInText.className = variant === "igi" ? "cutInText igi" : "cutInText"; el.cutInOverlay.classList.remove("show"); void el.cutInOverlay.offsetWidth; el.cutInOverlay.classList.add("show"); state.cutInTimer = setTimeout(() => { el.cutInOverlay.classList.remove("show"); state.cutInTimer = null; }, 2000); }
+    function escapeHtml(value) { return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;"); }
+
+    el.hostBtn.addEventListener("click", connectAs);
+    el.joinBtn.addEventListener("click", connectAs);
+    el.backTitleBtn.addEventListener("click", () => disconnect(true));
+    el.disconnectBtn.addEventListener("click", () => disconnect(true));
+    el.disconnectFromGameBtn.addEventListener("click", () => disconnect(true));
+    el.addCpuBtn.addEventListener("click", () => send({ t: "add_cpu" }));
+    el.startGameBtn.addEventListener("click", () => send({ t: "start_game" }));
+    el.nextRoundBtn.addEventListener("click", () => send({ t: "next_round" }));
+    el.backLobbyFromGameBtn.addEventListener("click", () => send({ t: "back_lobby" }));
+    el.rematchBtn.addEventListener("click", () => send({ t: "start_game" }));
+    el.backLobbyResultBtn.addEventListener("click", () => send({ t: "back_lobby" }));
+    el.discardBtn.addEventListener("click", () => {
+      if (!state.selectedTileId) { el.gameStatus.textContent = "出す牌を1枚選んでください。"; return; }
+      if (selectedIsSeparator()) { el.gameStatus.textContent = "区切り牌は捨てられません。"; return; }
+      if (!isMyTurn()) { el.gameStatus.textContent = "まだあなたの手番ではありません。"; return; }
+      send({ t: "discard", tileId: state.selectedTileId });
+    });
+    el.ronBtn.addEventListener("click", () => { if (canRon()) send({ t: "ron" }); });
+    el.ponBtn.addEventListener("click", () => {
+      if (isMyPendingPon()) {
+        if (state.selectedPonTileIds.length === 0) { send({ t: "cancel_pon" }); return; }
+        if (state.selectedPonTileIds.length !== 2) { el.gameStatus.textContent = "ポンするには自分の牌を2枚選んでください。未選択に戻してもう一度ポンでキャンセルできます。"; return; }
+        send({ t: "confirm_pon", tileIds: state.selectedPonTileIds }); state.selectedPonTileIds = []; return;
+      }
+      if (canPon()) send({ t: "pon" });
+    });
+    el.kanBtn.addEventListener("click", () => {
+      if (!state.kanMode) {
+        if (!canKan()) { el.gameStatus.textContent = "カンは自分の手番だけ可能です。"; return; }
+        state.kanMode = true; state.selectedKanTileIds = []; state.selectedTileId = null;
+        el.gameStatus.textContent = "カン選択中です。自分の牌を4枚以上選んで、もう一度カンを押してください。未選択でもう一度押すとキャンセルします。";
+        renderMyHand(); renderGameActions(); return;
+      }
+      if (state.selectedKanTileIds.length === 0) { state.kanMode = false; state.selectedKanTileIds = []; el.gameStatus.textContent = "カンをキャンセルしました。"; renderMyHand(); renderGameActions(); return; }
+      if (state.selectedKanTileIds.length < 4) { el.gameStatus.textContent = "カンするには4枚以上選んでください。"; return; }
+      send({ t: "kan", tileIds: state.selectedKanTileIds }); state.kanMode = false; state.selectedKanTileIds = [];
+    });
+    el.separatorAddBtn.addEventListener("click", () => send({ t: "add_separator" }));
+    el.separatorRemoveBtn.addEventListener("click", () => { if (!selectedIsSeparator()) { el.gameStatus.textContent = "削除する区切り牌を選んでください。"; return; } send({ t: "remove_separator", tileId: state.selectedTileId }); state.selectedTileId = null; });
+    el.tsumoBtn.addEventListener("click", () => { if (isMyTurn()) { showCutIn("ツモ"); send({ t: "tsumo_win" }); } });
+    el.targetScoreInput.addEventListener("change", () => { const score = Math.max(1, Math.min(20, Math.floor(Number(el.targetScoreInput.value) || 3))); el.targetScoreInput.value = String(score); send({ t: "set_target_score", targetScore: score }); });
+    el.reactionSecondsInput.addEventListener("change", () => { const seconds = Math.max(1, Math.min(15, Math.floor(Number(el.reactionSecondsInput.value) || 5))); el.reactionSecondsInput.value = String(seconds); send({ t: "set_reaction_seconds", reactionSeconds: seconds }); });
+    el.nameInput.addEventListener("change", () => { const name = normalizeName(el.nameInput.value); el.nameInput.value = name; if (state.connected) send({ t: "set_name", name }); });
+    applyUrlParams();
+  </script>
+</body>
+</html>

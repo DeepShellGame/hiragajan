@@ -1,187 +1,1420 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ひらがな麻雀 オンライン Phase6 Claim Queue</title>
-  <style>
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#20242b;color:#f5f5f5;user-select:none}.screen{min-height:100vh;padding:16px}.centerScreen{display:grid;place-items:center}.hidden{display:none!important}.card{width:min(800px,100%);background:#eef1f5;color:#171a20;border:3px solid #ffcf40;border-radius:24px;padding:26px;box-shadow:0 18px 50px rgba(0,0,0,.35)}h1{margin:0 0 20px;text-align:center;font-size:clamp(36px,6vw,64px);letter-spacing:.08em}h2{margin:0 0 14px;font-size:28px}label{display:grid;gap:8px;font-size:18px;font-weight:900;margin:12px 0}input{padding:14px 16px;border:2px solid #9aa3b2;border-radius:14px;font-size:22px;font-weight:900}button{border:0;border-radius:14px;padding:14px 18px;font-size:18px;font-weight:900;background:#f4f7fb;color:#171a20;cursor:pointer;box-shadow:0 4px 0 #9aa3b2}button:disabled{opacity:.4;cursor:not-allowed}button:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #9aa3b2}.good{background:#68e18c}.blue{background:#78b7ff}.danger{background:#ff7676}.yellow{background:#ffcf40}.buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}.box{background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:16px}.row{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}.inlineInput{width:110px;text-align:center}.status{margin-top:14px;padding:10px 12px;border-radius:12px;background:#303746;color:#fff;font-weight:800;line-height:1.45;word-break:break-all}.participants{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.participant{background:#303746;color:#fff;border-radius:14px;padding:12px;display:flex;justify-content:space-between;gap:10px;font-weight:900}.gameRoot{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto auto auto;gap:12px}.topbar,.actions,.judgePanel,.resultPanel,.claimTimer{background:#2d333d;border:1px solid #4a5361;border-radius:16px;padding:12px;box-shadow:0 8px 20px rgba(0,0,0,.22)}.topbar{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center}.mainStatus{font-size:20px;font-weight:900;line-height:1.4}.smallInfo{color:#d6d9df;font-weight:800;white-space:nowrap}.claimTimer{display:none;text-align:center;border-color:#ffcf40;background:#3a3140}.claimTimer.show{display:block}.claimTimerMain{font-size:28px;font-weight:1000;color:#ffcf40}.claimTimerSub{font-size:15px;font-weight:900;color:#f3f4f6;margin-top:4px}.players{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.player{background:#eef1f5;color:#171a20;border-radius:16px;padding:12px;border:3px solid transparent;display:grid;grid-template-rows:auto auto 1fr;gap:10px;min-height:280px}.player.turn{border-color:#ffcf40;box-shadow:0 0 0 2px rgba(255,207,64,.3),0 0 28px rgba(255,207,64,.35)}.player.me{border-color:#78b7ff}.player.winner{border-color:#68e18c;box-shadow:0 0 0 2px rgba(104,225,140,.3),0 0 28px rgba(104,225,140,.35)}.playerHeader{display:flex;justify-content:space-between;gap:8px;font-weight:1000}.badge{background:#303746;color:#fff;border-radius:999px;padding:3px 8px;font-size:12px;white-space:nowrap}.section{background:rgba(0,0,0,.06);border-radius:12px;padding:10px;border:1px solid rgba(0,0,0,.08);min-height:74px}.sectionTitle{font-size:13px;font-weight:900;letter-spacing:.04em;color:#465163;margin-bottom:7px}.tileRow{display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start;align-items:center}.meldGroup{display:flex;flex-wrap:nowrap;gap:4px;align-items:center;background:rgba(255,255,255,.78);border-radius:12px;padding:6px;border:1px solid rgba(0,0,0,.08)}.meldGroup.reorderable{outline:2px dashed rgba(120,183,255,.75);outline-offset:2px}.tile{width:42px;height:50px;border-radius:8px;border:1px solid #9ca3af;background:linear-gradient(#fff,#e9edf3);color:#111827;display:grid;place-items:center;font-size:24px;font-weight:900;box-shadow:0 3px 0 #b9c0cb;cursor:pointer;touch-action:manipulation}.tile.small{width:38px;height:46px;font-size:22px;cursor:default;box-shadow:0 2px 0 #b9c0cb}.tile.mini{width:30px;height:38px;font-size:18px;cursor:default;box-shadow:0 2px 0 #b9c0cb}.tile.myTile{width:58px;height:72px;border-radius:12px;font-size:34px;box-shadow:0 5px 0 #b9c0cb}.tile.separator{width:26px;background:transparent;border:0;border-bottom:7px solid #ffcf40;border-radius:0;box-shadow:none;color:transparent}.tile.separator.myTile{width:42px;height:72px;border-bottom-width:9px}.tile.separator.mini{width:22px;height:38px;border-bottom-width:5px}.tile.separator.small{width:24px;height:46px;border-bottom-width:5px}.tile.smallKana{position:relative}.tile.smallKana::before{content:"小";position:absolute;top:2px;left:3px;font-size:10px;font-weight:1000;line-height:1;color:#111827;background:rgba(255,207,64,.9);border-radius:4px;padding:1px 3px;pointer-events:none}.tile.myTile.smallKana::before{top:4px;left:5px;font-size:12px}.tile.mini.smallKana::before{top:1px;left:2px;font-size:8px;padding:1px 2px}.tile.small.smallKana::before{top:1px;left:2px;font-size:8px;padding:1px 2px}.tile.selected{outline:4px solid #ffcf40;transform:translateY(-4px)}.tile.separator.selected{outline:3px solid #78b7ff;outline-offset:4px;transform:translateY(-4px)}.tile.ponSelected{outline:4px solid #78b7ff;background:linear-gradient(#e8f3ff,#b8dcff);transform:translateY(-4px)}.tile.kanSelected{outline:4px solid #ffcf40;background:linear-gradient(#fff4b8,#ffd64f);transform:translateY(-4px)}.tile.dragging{opacity:.35}.tile.dragOver{outline:4px solid #78b7ff}.tile.claimTarget{background:linear-gradient(#ffb2b2,#ff5f5f);border-color:#a40000;color:#240000;box-shadow:0 3px 0 #8f0000,0 0 16px rgba(255,80,80,.85)}.myHandPanel{background:#eef1f5;color:#171a20;border:3px solid #ffcf40;border-radius:18px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.28),0 0 28px rgba(255,207,64,.25)}.myHandHeader{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px;font-size:18px;font-weight:1000}.myHand{display:flex;flex-wrap:wrap;gap:9px;align-content:flex-start;min-height:104px;background:rgba(255,255,255,.72);border-radius:14px;padding:12px;outline:2px dashed rgba(255,207,64,.8);outline-offset:3px}.actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}.spacer{flex:1 1 auto}.judgePanel{display:none;gap:10px}.judgePanel.show{display:grid}.judgeTitle{font-size:22px;font-weight:1000}.judgeHelp{color:#dce1ea;font-weight:800;line-height:1.5}.judgeHand{display:flex;flex-wrap:wrap;gap:7px;background:rgba(255,255,255,.1);border-radius:12px;padding:10px}.judgeMeldTitle{width:100%;margin-top:10px;font-weight:1000;color:#fff}.voteRows{display:grid;gap:8px}.voteRow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;color:#fff;font-weight:900}.voteActions{display:flex;flex-wrap:wrap;gap:8px}.resultPanel{display:none;text-align:center;background:#eef1f5;color:#171a20;border:4px solid #ffcf40}.resultPanel.show{display:grid;gap:12px}.winnerTitle{font-size:clamp(30px,4vw,52px);font-weight:1000}.winnerSub{font-size:20px;font-weight:900;color:#465163}.cutInOverlay{position:fixed;inset:0;display:none;place-items:center;z-index:9999;pointer-events:none;background:rgba(0,0,0,.12)}.cutInOverlay.show{display:grid}.cutInText{min-width:min(720px,86vw);text-align:center;font-size:clamp(72px,15vw,180px);font-weight:1000;letter-spacing:.12em;color:#fff;text-shadow:0 8px 0 #111827,0 0 24px rgba(255,207,64,.95),0 0 54px rgba(255,80,80,.75);animation:cutInPop 2s ease-out forwards;transform:rotate(-7deg) scale(.72)}.cutInText.igi{color:#ffef5a;text-shadow:0 8px 0 #7f0000,0 0 24px rgba(255,90,90,.95),0 0 54px rgba(255,0,0,.8)}@keyframes cutInPop{0%{opacity:0;transform:rotate(-10deg) scale(.45);filter:blur(6px)}12%{opacity:1;transform:rotate(-7deg) scale(1.18);filter:blur(0)}24%{transform:rotate(-7deg) scale(1)}78%{opacity:1;transform:rotate(-7deg) scale(1)}100%{opacity:0;transform:rotate(-7deg) scale(1.08)}}@media(max-width:1100px){.players{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar{grid-template-columns:1fr}.smallInfo{white-space:normal}}@media(max-width:640px){.buttons{grid-template-columns:1fr}.participants{grid-template-columns:1fr}.players{grid-template-columns:1fr}.voteRow{grid-template-columns:1fr}}
-    @media (orientation: landscape) and (max-height: 520px){html,body{height:100%;overflow:hidden}.screen{height:100svh;min-height:0;padding:6px;overflow:hidden}.gameRoot{height:calc(100svh - 12px);min-height:0;grid-template-rows:auto 1fr auto auto auto;gap:6px}.topbar,.actions,.judgePanel,.resultPanel{padding:6px;border-radius:10px}.mainStatus{font-size:13px;line-height:1.2}.smallInfo{font-size:12px}.players{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;min-height:0;overflow:hidden}.player{min-height:0;padding:6px;border-radius:10px;gap:5px;grid-template-rows:auto auto 1fr}.playerHeader{font-size:11px;line-height:1.15}.badge{font-size:10px;padding:2px 5px}.section{padding:5px;border-radius:8px;min-height:0}.sectionTitle{font-size:10px;margin-bottom:4px}.tileRow{gap:3px}.meldGroup{gap:2px;padding:3px;border-radius:7px}.tile{width:28px;height:34px;font-size:17px;border-radius:6px}.tile.small{width:24px;height:30px;font-size:15px}.tile.mini{width:20px;height:26px;font-size:13px}.tile.myTile{width:36px;height:44px;font-size:23px;border-radius:8px;box-shadow:0 3px 0 #b9c0cb}.tile.separator.myTile{width:26px;height:44px;border-bottom-width:6px}.tile.separator.small{width:18px;height:30px}.tile.separator.mini{width:16px;height:26px}.tile.myTile.smallKana::before{top:2px;left:3px;font-size:8px;padding:1px 2px}.myHandPanel{padding:6px;border-radius:10px}.myHandHeader{font-size:12px;margin-bottom:4px}.myHand{min-height:50px;padding:6px;gap:5px;outline-offset:1px}.actions{padding:6px;gap:5px;max-height:46px;overflow:hidden}.actions button{padding:7px 9px;font-size:12px;border-radius:9px;box-shadow:0 2px 0 #9aa3b2}.judgePanel.show{max-height:calc(100svh - 110px);overflow:auto}.judgeTitle{font-size:14px}.judgeHelp{font-size:11px}.judgeHand{padding:6px;gap:4px}.voteRows{gap:4px}.voteRow{font-size:12px;gap:5px}.voteActions{gap:4px}.voteActions button{padding:7px 9px;font-size:12px}.resultPanel.show{max-height:calc(100svh - 70px);overflow:auto}.winnerTitle{font-size:24px}.winnerSub{font-size:14px}}
-  </style>
-</head>
-<body>
-  <div id="cutInOverlay" class="cutInOverlay"><div id="cutInText" class="cutInText"></div></div>
+import { DurableObject } from "cloudflare:workers";
 
-  <section id="titleScreen" class="screen centerScreen">
-    <div class="card">
-      <h1>ひらがな麻雀</h1>
-      <label>自分の名前<input id="nameInput" value="あなた" maxlength="12" /></label>
-      <label>部屋ID<input id="roomInput" value="testroom" maxlength="32" /></label>
-      <div class="buttons"><button id="hostBtn" class="good">ホスト</button><button id="joinBtn" class="blue">参加</button></div>
-      <div id="titleStatus" class="status">未接続</div>
-    </div>
-  </section>
+export interface Env {
+  ROOM: DurableObjectNamespace<HiragajanRoom>;
+}
 
-  <section id="lobbyScreen" class="screen centerScreen hidden">
-    <div class="card">
-      <h2>待機画面</h2>
-      <div class="box"><div class="row"><strong>部屋ID</strong><span id="roomLabel">-</span></div><div class="row"><strong>接続状態</strong><span id="connectionLabel">-</span></div></div>
-      <div class="box" style="margin-top:14px;"><div class="row"><strong>現在の参加者</strong><span id="countLabel">0人</span></div><div id="participants" class="participants"></div></div>
-      <div class="box" style="margin-top:14px;"><div class="row"><strong>何点取ったら勝ち</strong><input id="targetScoreInput" class="inlineInput" type="number" min="1" max="20" value="3" /></div></div>
-      <div class="box" style="margin-top:14px;"><div class="row"><strong>ロン/ポン受付時間</strong><span><input id="reactionSecondsInput" class="inlineInput" type="number" min="1" max="15" value="5" /> 秒</span></div></div>
-      <div class="buttons"><button id="addCpuBtn" class="blue">CPUを追加</button><button id="startGameBtn" class="good">ゲームスタート</button><button id="backTitleBtn">タイトルへ</button><button id="disconnectBtn" class="danger">切断</button></div>
-      <div id="lobbyStatus" class="status">待機中</div>
-    </div>
-  </section>
+type Phase = "lobby" | "play" | "judge" | "round_over";
+type ClaimType = "ツモ" | "ロン";
+type JudgeVote = "上がり" | "異議あり" | "ダメだろ";
+type TileKind = "tile" | "separator";
+type RonResult = "accepted" | "rejected";
 
-  <section id="gameScreen" class="screen hidden">
-    <div class="gameRoot">
-      <div class="topbar"><div id="gameStatus" class="mainStatus">対局中</div><div id="wallInfo" class="smallInfo">山: -</div><div id="lastDiscardInfo" class="smallInfo">直前: -</div></div>
-      <div id="claimTimer" class="claimTimer"><div id="claimTimerMain" class="claimTimerMain"></div><div id="claimTimerSub" class="claimTimerSub"></div></div>
-      <div id="players" class="players"></div>
-      <div class="actions">
-        <button id="discardBtn">出す</button>
-        <button id="ponBtn" class="blue">ポン</button>
-        <button id="kanBtn" class="yellow">カン</button>
-        <button id="separatorAddBtn" class="yellow">区切り追加</button>
-        <button id="separatorRemoveBtn">区切り削除</button>
-        <button id="tsumoBtn" class="good">ツモ上がり</button>
-        <button id="ronBtn" class="danger">ロン</button>
-        <button id="nextRoundBtn" class="good">次のラウンドへ</button>
-        <button id="backLobbyFromGameBtn" class="blue">待機へ戻る</button>
-        <span class="spacer"></span>
-        <button id="disconnectFromGameBtn" class="danger">切断</button>
-      </div>
-      <div class="myHandPanel"><div class="myHandHeader"><span id="myHandTitle">自分の手札</span><span id="myTurnLabel">-</span></div><div id="myHand" class="myHand"></div></div>
-      <div id="judgePanel" class="judgePanel"><div id="judgeTitle" class="judgeTitle"></div><div class="judgeHelp">公開手札を見て、上がりかどうかを全員で判断してください。区切り牌と鳴き枠も表示されます。</div><div id="judgeHand" class="judgeHand"></div><div id="voteRows" class="voteRows"></div></div>
-      <div id="resultPanel" class="resultPanel"><div id="winnerTitle" class="winnerTitle"></div><div id="winnerSub" class="winnerSub"></div><div class="buttons"><button id="rematchBtn" class="good">もう一度</button><button id="backLobbyResultBtn" class="blue">待機へ戻る</button></div></div>
-    </div>
-  </section>
+type ClientMessage =
+  | { t: "join"; name?: string }
+  | { t: "set_name"; name: string }
+  | { t: "set_target_score"; targetScore: number }
+  | { t: "set_reaction_seconds"; reactionSeconds: number }
+  | { t: "add_cpu" }
+  | { t: "start_game" }
+  | { t: "discard"; tileId: string }
+  | { t: "reorder_hand"; fromIndex: number; toIndex: number }
+  | { t: "add_separator" }
+  | { t: "remove_separator"; tileId: string }
+  | { t: "tsumo_win" }
+  | { t: "ron" }
+  | { t: "pon" }
+  | { t: "confirm_pon"; tileIds: string[] }
+  | { t: "cancel_pon" }
+  | { t: "kan"; tileIds: string[] }
+  | { t: "reorder_meld"; meldId: string; fromIndex: number; toIndex: number }
+  | { t: "judge_vote"; vote: JudgeVote }
+  | { t: "next_round" }
+  | { t: "back_lobby" };
 
-  <script>
-    const WS_BASE_LOCAL = "ws://127.0.0.1:8787/ws/";
-    const WS_BASE_PROD = "wss://hiragajan-ws.naitoryo7110.workers.dev/ws/";
-    const el = {
-      cutInOverlay: document.getElementById("cutInOverlay"), cutInText: document.getElementById("cutInText"),
-      titleScreen: document.getElementById("titleScreen"), lobbyScreen: document.getElementById("lobbyScreen"), gameScreen: document.getElementById("gameScreen"),
-      nameInput: document.getElementById("nameInput"), roomInput: document.getElementById("roomInput"), hostBtn: document.getElementById("hostBtn"), joinBtn: document.getElementById("joinBtn"), titleStatus: document.getElementById("titleStatus"),
-      roomLabel: document.getElementById("roomLabel"), connectionLabel: document.getElementById("connectionLabel"), countLabel: document.getElementById("countLabel"), participants: document.getElementById("participants"), targetScoreInput: document.getElementById("targetScoreInput"), reactionSecondsInput: document.getElementById("reactionSecondsInput"),
-      addCpuBtn: document.getElementById("addCpuBtn"), startGameBtn: document.getElementById("startGameBtn"), backTitleBtn: document.getElementById("backTitleBtn"), disconnectBtn: document.getElementById("disconnectBtn"), lobbyStatus: document.getElementById("lobbyStatus"),
-      gameStatus: document.getElementById("gameStatus"), wallInfo: document.getElementById("wallInfo"), lastDiscardInfo: document.getElementById("lastDiscardInfo"), claimTimer: document.getElementById("claimTimer"), claimTimerMain: document.getElementById("claimTimerMain"), claimTimerSub: document.getElementById("claimTimerSub"), players: document.getElementById("players"),
-      discardBtn: document.getElementById("discardBtn"), ponBtn: document.getElementById("ponBtn"), kanBtn: document.getElementById("kanBtn"), separatorAddBtn: document.getElementById("separatorAddBtn"), separatorRemoveBtn: document.getElementById("separatorRemoveBtn"), tsumoBtn: document.getElementById("tsumoBtn"), ronBtn: document.getElementById("ronBtn"), nextRoundBtn: document.getElementById("nextRoundBtn"), backLobbyFromGameBtn: document.getElementById("backLobbyFromGameBtn"), disconnectFromGameBtn: document.getElementById("disconnectFromGameBtn"),
-      myHandTitle: document.getElementById("myHandTitle"), myTurnLabel: document.getElementById("myTurnLabel"), myHand: document.getElementById("myHand"),
-      judgePanel: document.getElementById("judgePanel"), judgeTitle: document.getElementById("judgeTitle"), judgeHand: document.getElementById("judgeHand"), voteRows: document.getElementById("voteRows"),
-      resultPanel: document.getElementById("resultPanel"), winnerTitle: document.getElementById("winnerTitle"), winnerSub: document.getElementById("winnerSub"), rematchBtn: document.getElementById("rematchBtn"), backLobbyResultBtn: document.getElementById("backLobbyResultBtn")
-    };
-    const state = { ws: null, playerId: null, roomId: "testroom", serverState: null, connected: false, selectedTileId: null, selectedPonTileIds: [], selectedKanTileIds: [], kanMode: false, lastCutInKey: "", cutInTimer: null, meldDrag: null, handDrag: null, countdownTimer: null };
+type ServerMessage =
+  | { t: "hello"; playerId: string }
+  | { t: "state"; state: PublicRoomState }
+  | { t: "error"; message: string };
 
-    function normalizeName(value) { const text = String(value || "").trim(); return text ? text.slice(0, 12) : "あなた"; }
-    function normalizeRoom(value) { const text = String(value || "").trim().replace(/[^a-zA-Z0-9_-]/g, ""); return text ? text.slice(0, 32) : "testroom"; }
-    function setScreen(screen) { el.titleScreen.classList.toggle("hidden", screen !== "title"); el.lobbyScreen.classList.toggle("hidden", screen !== "lobby"); el.gameScreen.classList.toggle("hidden", screen !== "game"); }
-    function getWsBase() { const isLocalFile = location.protocol === "file:"; const isLocalHost = location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === ""; return (isLocalFile || isLocalHost) ? WS_BASE_LOCAL : WS_BASE_PROD; }
-    function applyUrlParams() { const params = new URLSearchParams(location.search); const room = params.get("room"); const name = params.get("name"); if (room) el.roomInput.value = normalizeRoom(room); if (name) el.nameInput.value = normalizeName(name); }
-    function isSeparator(item) { return (item?.kind || "tile") === "separator"; }
-    function itemText(item) { return typeof item === "string" ? item : (item?.text || ""); }
-    function itemKind(item) { return typeof item === "string" ? "tile" : (item?.kind || "tile"); }
-    function selectedItem() { return state.serverState?.myHand?.find(x => x.id === state.selectedTileId) || null; }
-    function selectedIsSeparator() { return isSeparator(selectedItem()); }
-    function activeOwnHandControls() { const s = state.serverState; return Boolean(s && s.phase !== "lobby" && s.phase !== "round_over"); }
-    function claimWindowActive() { return Boolean(state.serverState?.claimWindow); }
-    function declaredRon() { const s = state.serverState; return Boolean(s?.claimWindow?.ronClaimantIds?.includes(state.playerId)); }
-    function declaredPon() { const s = state.serverState; return Boolean(s?.claimWindow?.ponClaimantIds?.includes(state.playerId)); }
-    function declaredAnyClaim() { return declaredRon() || declaredPon(); }
+type Tile = { id: string; text: string; kind: TileKind };
+type Meld = { id: string; tiles: string[] };
+type RevealItem = { text: string; kind: TileKind };
 
-    function connectAs() {
-      disconnect(false);
-      state.roomId = normalizeRoom(el.roomInput.value);
-      el.roomInput.value = state.roomId;
-      const name = normalizeName(el.nameInput.value);
-      el.nameInput.value = name;
-      const url = getWsBase() + encodeURIComponent(state.roomId);
-      el.titleStatus.textContent = `接続中: ${url}`;
-      const ws = new WebSocket(url);
-      state.ws = ws;
-      ws.onopen = () => { state.connected = true; setScreen("lobby"); setLobbyStatus("接続成功。join を送信しました。"); send({ t: "join", name }); };
-      ws.onmessage = event => {
-        let message;
-        try { message = JSON.parse(event.data); } catch { setLobbyStatus("サーバーから不正なJSONを受信しました。"); return; }
-        if (message.t === "hello") { state.playerId = message.playerId; setLobbyStatus(`接続ID: ${state.playerId}`); return; }
-        if (message.t === "state") {
-          const previous = state.serverState;
-          state.serverState = message.state;
-          if (state.selectedTileId && !message.state.myHand?.some(tile => tile.id === state.selectedTileId)) state.selectedTileId = null;
-          state.selectedPonTileIds = state.selectedPonTileIds.filter(id => message.state.myHand?.some(tile => tile.id === id && !isSeparator(tile)));
-          state.selectedKanTileIds = state.selectedKanTileIds.filter(id => message.state.myHand?.some(tile => tile.id === id && !isSeparator(tile)));
-          maybeShowStateCutIn(previous, message.state);
-          renderByPhase();
-          return;
-        }
-        if (message.t === "error") showError(message.message);
-      };
-      ws.onerror = () => { el.titleStatus.textContent = "WebSocketエラー。Wranglerが起動中か確認してください。"; setLobbyStatus("WebSocketエラー。Wranglerが起動中か確認してください。"); };
-      ws.onclose = () => { state.connected = false; renderByPhase(); el.titleStatus.textContent = "切断されました。再接続してください。"; };
+type PlayerState = {
+  playerId: string;
+  name: string;
+  seatIndex: number;
+  isHost: boolean;
+  isCpu: boolean;
+  connected: boolean;
+  score: number;
+  isOut: boolean;
+  hand: Tile[];
+  discards: string[];
+  melds: Meld[];
+};
+
+type PublicPlayerState = {
+  playerId: string;
+  name: string;
+  seatIndex: number;
+  isHost: boolean;
+  isCpu: boolean;
+  connected: boolean;
+  score: number;
+  isOut: boolean;
+  handCount: number;
+  separatorCount: number;
+  discards: string[];
+  melds: Meld[];
+};
+
+type JudgeState = {
+  claimantId: string;
+  claimType: ClaimType;
+  revealedHand: RevealItem[];
+  claimedDiscardTile: string;
+  fromDiscarderId: string | null;
+  resumePlayerId: string | null;
+  votes: Record<string, JudgeVote>;
+};
+
+type PublicJudgeState = {
+  claimantId: string;
+  claimType: ClaimType;
+  revealedHand: RevealItem[];
+  revealedMelds: Meld[];
+  claimedDiscardTile: string;
+  fromDiscarderId: string | null;
+  votes: Record<string, JudgeVote>;
+  requiredVoterIds: string[];
+  ronQueueIndex: number | null;
+  ronQueueTotal: number | null;
+};
+
+type ClaimWindowState = {
+  discarderId: string;
+  discardText: string;
+  startedAt: number;
+  endsAt: number;
+  ronClaimantIds: string[];
+  ponClaimantIds: string[];
+};
+
+type PublicClaimWindowState = {
+  discarderId: string;
+  discardText: string;
+  startedAt: number;
+  endsAt: number;
+  ronClaimantIds: string[];
+  ponClaimantIds: string[];
+};
+
+type RonJudgeQueueState = {
+  discarderId: string;
+  discardText: string;
+  claimantIds: string[];
+  currentIndex: number;
+  results: Record<string, RonResult>;
+  ponCandidateIds: string[];
+  resumePlayerId: string | null;
+};
+
+type PendingPonState = {
+  playerId: string;
+  discardText: string;
+  discarderId: string;
+  resumePlayerId: string | null;
+};
+
+type PublicRoomState = {
+  roomId: string;
+  phase: Phase;
+  targetScore: number;
+  reactionSeconds: number;
+  hostPlayerId: string | null;
+  currentPlayerId: string | null;
+  lastDiscardTile: string;
+  lastDiscarderId: string | null;
+  claimableDiscard: boolean;
+  claimWindow: PublicClaimWindowState | null;
+  wallCount: number;
+  matchWinnerId: string | null;
+  roundMessage: string;
+  myPlayerId: string;
+  myHand: Tile[];
+  pendingPon: PendingPonState | null;
+  judge: PublicJudgeState | null;
+  players: PublicPlayerState[];
+};
+
+type StoredRoomState = {
+  schemaVersion: 1;
+  roomId: string;
+  phase: Phase;
+  targetScore: number;
+  reactionSeconds: number;
+  hostPlayerId: string | null;
+  currentPlayerId: string | null;
+  lastDiscardTile: string;
+  lastDiscarderId: string | null;
+  claimableDiscard: boolean;
+  claimWindow: ClaimWindowState | null;
+  ronJudgeQueue: RonJudgeQueueState | null;
+  wall: Tile[];
+  matchWinnerId: string | null;
+  roundMessage: string;
+  nextTileNo: number;
+  nextSeparatorNo: number;
+  nextMeldNo: number;
+  players: PlayerState[];
+  judge: JudgeState | null;
+  pendingPon: PendingPonState | null;
+};
+
+type SocketAttachment = { playerId: string };
+
+const STORAGE_KEY = "roomState:v1";
+const MAX_PLAYERS = 4;
+const DEFAULT_TARGET_SCORE = 3;
+const DEFAULT_REACTION_SECONDS = 5;
+const MIN_REACTION_SECONDS = 1;
+const MAX_REACTION_SECONDS = 15;
+const INITIAL_HAND_COUNT = 13;
+const CPU_THINK_MS = 650;
+const MAX_SEPARATORS_PER_PLAYER = 8;
+
+const SEION_TILES = [
+  "あ", "い", "う", "え", "お",
+  "か", "き", "く", "け", "こ",
+  "さ", "し", "す", "せ", "そ",
+  "た", "ち", "つ", "て", "と",
+  "な", "に", "ぬ", "ね", "の",
+  "は", "ひ", "ふ", "へ", "ほ",
+  "ま", "み", "む", "め", "も",
+  "や", "ゆ", "よ",
+  "ら", "り", "る", "れ", "ろ",
+  "わ", "ん",
+];
+
+const DAKUON_TILES = [
+  "が", "ぎ", "ぐ", "げ", "ご",
+  "ざ", "じ", "ず", "ぜ", "ぞ",
+  "だ", "ぢ", "づ", "で", "ど",
+  "ば", "び", "ぶ", "べ", "ぼ",
+];
+const HANDAKUON_TILES = ["ぱ", "ぴ", "ぷ", "ぺ", "ぽ"];
+const YOON_TILES = ["ゃ", "ゅ", "ょ", "っ"];
+const CHOON_TILES = ["ー"];
+
+const TILE_ORDER = new Map(
+  [...SEION_TILES, ...DAKUON_TILES, ...HANDAKUON_TILES, ...YOON_TILES, ...CHOON_TILES].map((text, index) => [text, index]),
+);
+
+export default {
+  async fetch(request: Request, env: Env): Promise<Response> {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/") {
+      return new Response("hiragajan-ws is running", {
+        headers: { "content-type": "text/plain; charset=utf-8" },
+      });
     }
 
-    function disconnect(goTitle = true) { if (state.ws) { try { state.ws.close(); } catch {} } state.ws = null; state.connected = false; state.serverState = null; state.playerId = null; state.selectedTileId = null; state.selectedPonTileIds = []; state.selectedKanTileIds = []; state.kanMode = false; state.lastCutInKey = ""; updateClaimTimer(); if (goTitle) setScreen("title"); }
-    function send(payload) { if (!state.ws || state.ws.readyState !== WebSocket.OPEN) { showError("未接続です。"); return false; } state.ws.send(JSON.stringify(payload)); return true; }
-    function getMe() { const s = state.serverState; if (!s || !state.playerId) return null; return s.players.find(p => p.playerId === state.playerId) || null; }
-    function isHost() { return Boolean(getMe()?.isHost); }
-    function isMyTurn() { const s = state.serverState; return Boolean(s && s.currentPlayerId === state.playerId && s.phase === "play" && !isMyPendingPon() && !claimWindowActive()); }
-    function isMyPendingPon() { const s = state.serverState; return Boolean(s?.pendingPon && s.pendingPon.playerId === state.playerId); }
-    function isOtherPendingPon() { const s = state.serverState; return Boolean(s?.pendingPon && s.pendingPon.playerId !== state.playerId); }
-    function canRon() { const s = state.serverState; return Boolean(s && s.phase === "play" && s.claimWindow && !s.pendingPon && s.lastDiscarderId && s.lastDiscarderId !== state.playerId && !declaredAnyClaim()); }
-    function canPon() { const s = state.serverState; return Boolean(s && s.phase === "play" && s.claimWindow && !s.pendingPon && s.lastDiscarderId && s.lastDiscarderId !== state.playerId && !declaredAnyClaim() && s.myHand.filter(x => !isSeparator(x)).length >= 2); }
-    function canKan() { return Boolean(isMyTurn() && !isMyPendingPon() && !isOtherPendingPon()); }
-    function setLobbyStatus(text) { el.lobbyStatus.textContent = text; }
-    function showError(message) { const text = `エラー: ${message}`; setLobbyStatus(text); el.gameStatus.textContent = text; console.error(text); }
+    if (url.pathname.startsWith("/ws/")) {
+      if (request.headers.get("Upgrade") !== "websocket") {
+        return new Response("Expected Upgrade: websocket", { status: 426 });
+      }
+      const roomId = decodeURIComponent(url.pathname.slice("/ws/".length)).trim();
+      if (!roomId) return new Response("roomId is required", { status: 400 });
+      const id = env.ROOM.idFromName(roomId);
+      return env.ROOM.get(id).fetch(request);
+    }
 
-    function renderByPhase() { const s = state.serverState; if (!s) { if (state.connected) setScreen("lobby"); updateClaimTimer(); return; } if (s.phase === "lobby") { setScreen("lobby"); renderLobby(); } else { setScreen("game"); renderGame(); } }
-    function renderLobby() { const s = state.serverState; el.roomLabel.textContent = state.roomId; el.connectionLabel.textContent = state.connected ? "接続中" : "未接続"; updateClaimTimer(); if (!s) { el.countLabel.textContent = "0人"; el.participants.innerHTML = ""; el.addCpuBtn.disabled = true; el.startGameBtn.disabled = true; el.targetScoreInput.disabled = true; el.reactionSecondsInput.disabled = true; return; } el.countLabel.textContent = `${s.players.length}人`; el.targetScoreInput.value = s.targetScore; el.targetScoreInput.disabled = !isHost() || s.phase !== "lobby"; el.reactionSecondsInput.value = s.reactionSeconds ?? 5; el.reactionSecondsInput.disabled = !isHost() || s.phase !== "lobby"; el.addCpuBtn.disabled = !isHost() || s.phase !== "lobby" || s.players.length >= 4; el.startGameBtn.disabled = !isHost() || s.phase !== "lobby" || s.players.length < 2; el.addCpuBtn.textContent = s.players.length >= 4 ? "CPU追加上限" : "CPUを追加"; el.participants.innerHTML = ""; s.players.forEach(player => { const item = document.createElement("div"); item.className = "participant"; const badges = []; if (player.isHost) badges.push("ホスト"); if (player.isCpu) badges.push("CPU"); if (!player.connected) badges.push("切断"); if (player.playerId === state.playerId) badges.push("自分"); item.innerHTML = `<span>${escapeHtml(player.name)}</span><span>${badges.join(" / ") || "参加"}</span>`; el.participants.appendChild(item); }); }
+    return new Response("Not found", { status: 404 });
+  },
+};
 
-    function renderGame() { const s = state.serverState; if (!s) return; if (s.claimWindow) { const rons = s.claimWindow.ronClaimantIds?.map(playerNameById).join("、") || "なし"; const pons = s.claimWindow.ponClaimantIds?.map(playerNameById).join("、") || "なし"; el.gameStatus.textContent = `ロン/ポン受付中です。ロン: ${rons} / ポン: ${pons}`; } else if (s.pendingPon) { const p = playerNameById(s.pendingPon.playerId); el.gameStatus.textContent = isMyPendingPon() ? `ポン処理中です。自分の牌を${state.selectedPonTileIds.length}/2枚選んでください。未選択でもう一度ポンでキャンセル。` : `${p} がポン処理中です。`; } else if (state.kanMode) { el.gameStatus.textContent = `カン選択中です。${state.selectedKanTileIds.length}枚選択中。4枚以上選んで、もう一度カンを押してください。未選択でもう一度押すとキャンセル。`; } else if (s.phase === "judge") { const claimant = playerNameById(s.judge?.claimantId); const queue = s.judge?.ronQueueTotal ? ` ${s.judge.ronQueueIndex}/${s.judge.ronQueueTotal}` : ""; el.gameStatus.textContent = `${claimant} が${s.judge?.claimType}宣言。ジャッジ中です。${queue}`; } else if (s.phase === "round_over") { el.gameStatus.textContent = s.roundMessage || "ラウンド終了"; } else { const currentPlayer = s.players.find(p => p.playerId === s.currentPlayerId); el.gameStatus.textContent = currentPlayer ? `${currentPlayer.name} の手番です${isMyTurn() ? "。1枚出してください。" : "。"}` : "対局中"; } el.wallInfo.textContent = `山: ${s.wallCount}枚`; el.lastDiscardInfo.textContent = s.lastDiscardTile ? `直前: ${s.lastDiscardTile} / ${playerNameById(s.lastDiscarderId)}` : "直前: なし"; updateClaimTimer(); renderPlayers(); renderMyHand(); renderGameActions(); renderJudge(); renderResult(); }
-    function updateClaimTimer() { el.claimTimer.classList.remove("show"); el.claimTimerMain.textContent = ""; el.claimTimerSub.textContent = ""; }
+export class HiragajanRoom extends DurableObject<Env> {
+  private roomId = "unknown";
+  private phase: Phase = "lobby";
+  private targetScore = DEFAULT_TARGET_SCORE;
+  private reactionSeconds = DEFAULT_REACTION_SECONDS;
+  private hostPlayerId: string | null = null;
+  private currentPlayerId: string | null = null;
+  private lastDiscardTile = "";
+  private lastDiscarderId: string | null = null;
+  private claimableDiscard = false;
+  private claimWindow: ClaimWindowState | null = null;
+  private ronJudgeQueue: RonJudgeQueueState | null = null;
+  private wall: Tile[] = [];
+  private matchWinnerId: string | null = null;
+  private roundMessage = "";
+  private nextTileNo = 1;
+  private nextSeparatorNo = 1;
+  private nextMeldNo = 1;
+  private players = new Map<string, PlayerState>();
+  private judge: JudgeState | null = null;
+  private pendingPon: PendingPonState | null = null;
+  private cpuTimer: ReturnType<typeof setTimeout> | null = null;
+  private reactionTimer: ReturnType<typeof setTimeout> | null = null;
+  private loaded = false;
 
-    function renderPlayers() { const s = state.serverState; el.players.innerHTML = ""; s.players.forEach(player => { const panel = document.createElement("div"); panel.className = "player"; if (player.playerId === s.currentPlayerId && s.phase === "play") panel.classList.add("turn"); if (player.playerId === state.playerId) panel.classList.add("me"); if (player.playerId === s.matchWinnerId) panel.classList.add("winner"); const header = document.createElement("div"); header.className = "playerHeader"; const badges = []; if (player.playerId === state.playerId) badges.push("自分"); if (player.isHost) badges.push("ホスト"); if (player.isCpu) badges.push("CPU"); if (player.playerId === s.currentPlayerId && s.phase === "play") badges.push("手番"); if (player.playerId === s.matchWinnerId) badges.push("勝利"); if (s.pendingPon?.playerId === player.playerId) badges.push("ポン処理中"); if (s.claimWindow?.ronClaimantIds?.includes(player.playerId)) badges.push("ロン宣言"); if (s.claimWindow?.ponClaimantIds?.includes(player.playerId)) badges.push("ポン宣言"); const sep = player.separatorCount ? ` / 区切り${player.separatorCount}` : ""; header.innerHTML = `<span>${escapeHtml(player.name)} / ${player.score}点 / 手牌${player.handCount}枚${sep}</span><span class="badge">${badges.join(" / ") || "待機"}</span>`; panel.appendChild(header); panel.appendChild(createMeldSection(player)); panel.appendChild(createDiscardSection(player)); el.players.appendChild(panel); }); }
-    function createMeldSection(player) { const section = document.createElement("div"); section.className = "section"; section.innerHTML = `<div class="sectionTitle">鳴き / カン</div>`; const row = document.createElement("div"); row.className = "tileRow"; if (!player.melds.length) row.textContent = "なし"; else player.melds.forEach(meld => row.appendChild(createMeldGroup(player, meld))); section.appendChild(row); return section; }
-    function createMeldGroup(player, meld) { const group = document.createElement("div"); group.className = "meldGroup"; const reorderable = player.playerId === state.playerId; if (reorderable) group.classList.add("reorderable"); meld.tiles.forEach((text, tileIndex) => { const tile = makeTile({ text, kind: "tile" }, "mini"); if (reorderable) { tile.draggable = true; tile.style.cursor = "grab"; tile.addEventListener("dragstart", event => { state.meldDrag = { meldId: meld.id, tileIndex }; event.dataTransfer.effectAllowed = "move"; event.dataTransfer.setData("text/plain", JSON.stringify(state.meldDrag)); tile.classList.add("dragging"); }); tile.addEventListener("dragover", event => { event.preventDefault(); event.dataTransfer.dropEffect = "move"; tile.classList.add("dragOver"); }); tile.addEventListener("dragleave", () => tile.classList.remove("dragOver")); tile.addEventListener("drop", event => { event.preventDefault(); tile.classList.remove("dragOver"); let data = state.meldDrag; try { data = JSON.parse(event.dataTransfer.getData("text/plain")); } catch {} if (!data || data.meldId !== meld.id) return; send({ t: "reorder_meld", meldId: meld.id, fromIndex: data.tileIndex, toIndex: tileIndex }); }); tile.addEventListener("dragend", () => { state.meldDrag = null; tile.classList.remove("dragging"); }); } group.appendChild(tile); }); return group; }
-    function createDiscardSection(player) { const s = state.serverState; const section = document.createElement("div"); section.className = "section"; section.innerHTML = `<div class="sectionTitle">捨て牌</div>`; const row = document.createElement("div"); row.className = "tileRow"; if (!player.discards.length) row.textContent = "なし"; else player.discards.forEach((text, index) => { const tile = makeTile({ text, kind: "tile" }, "small"); const isClaimTarget = s.claimWindow && player.playerId === s.lastDiscarderId && index === player.discards.length - 1 && text === s.lastDiscardTile; if (isClaimTarget) tile.classList.add("claimTarget"); row.appendChild(tile); }); section.appendChild(row); return section; }
+  async fetch(request: Request): Promise<Response> {
+    await this.ensureLoaded();
 
-    function renderMyHand() { const s = state.serverState; const realCount = s.myHand.filter(x => !isSeparator(x)).length; const sepCount = s.myHand.length - realCount; const ponText = isMyPendingPon() ? ` / ポン選択中 ${state.selectedPonTileIds.length}/2` : ""; const kanText = state.kanMode ? ` / カン選択中 ${state.selectedKanTileIds.length}枚` : ""; const sepText = sepCount ? ` / 区切り${sepCount}` : ""; el.myHandTitle.textContent = `自分の手札 ${realCount}枚${sepText}${ponText}${kanText}`; el.myTurnLabel.textContent = isMyPendingPon() ? "ポン選択中" : state.kanMode ? "カン選択中" : isMyTurn() ? "あなたの手番" : s.phase === "judge" ? "ジャッジ中" : claimWindowActive() ? "受付中" : "待機中"; el.myHand.innerHTML = ""; s.myHand.forEach((tile, index) => { const tileEl = makeTile(tile, "myTile"); if (isMyPendingPon() && state.selectedPonTileIds.includes(tile.id)) tileEl.classList.add("ponSelected"); else if (state.kanMode && state.selectedKanTileIds.includes(tile.id)) tileEl.classList.add("kanSelected"); else if (!isMyPendingPon() && !state.kanMode && tile.id === state.selectedTileId) tileEl.classList.add("selected"); tileEl.draggable = true; tileEl.addEventListener("dragstart", event => { state.handDrag = { fromIndex: index }; event.dataTransfer.effectAllowed = "move"; event.dataTransfer.setData("text/plain", String(index)); tileEl.classList.add("dragging"); }); tileEl.addEventListener("dragover", event => { event.preventDefault(); event.dataTransfer.dropEffect = "move"; tileEl.classList.add("dragOver"); }); tileEl.addEventListener("dragleave", () => tileEl.classList.remove("dragOver")); tileEl.addEventListener("drop", event => { event.preventDefault(); tileEl.classList.remove("dragOver"); const fromIndex = Number(event.dataTransfer.getData("text/plain") || state.handDrag?.fromIndex); if (!Number.isFinite(fromIndex) || fromIndex === index) return; send({ t: "reorder_hand", fromIndex, toIndex: index }); }); tileEl.addEventListener("dragend", () => { state.handDrag = null; tileEl.classList.remove("dragging"); }); tileEl.addEventListener("click", () => { if (isMyPendingPon()) { if (isSeparator(tile)) { el.gameStatus.textContent = "区切り牌はポンに使えません。"; return; } togglePonTile(tile.id); } else if (state.kanMode) { if (isSeparator(tile)) { el.gameStatus.textContent = "区切り牌はカンに使えません。"; return; } toggleKanTile(tile.id); } else { state.selectedTileId = tile.id; } renderMyHand(); renderGameActions(); }); el.myHand.appendChild(tileEl); }); }
-    function togglePonTile(tileId) { if (state.selectedPonTileIds.includes(tileId)) state.selectedPonTileIds = state.selectedPonTileIds.filter(id => id !== tileId); else { if (state.selectedPonTileIds.length >= 2) { el.gameStatus.textContent = "ポンで選べるのは2枚までです。"; return; } state.selectedPonTileIds = [...state.selectedPonTileIds, tileId]; } }
-    function toggleKanTile(tileId) { if (state.selectedKanTileIds.includes(tileId)) state.selectedKanTileIds = state.selectedKanTileIds.filter(id => id !== tileId); else state.selectedKanTileIds = [...state.selectedKanTileIds, tileId]; }
-    function renderGameActions() { const s = state.serverState; el.discardBtn.disabled = !(isMyTurn() && state.selectedTileId && !selectedIsSeparator() && !state.kanMode); el.ronBtn.disabled = !canRon(); el.ronBtn.textContent = declaredRon() ? "ロン宣言済み" : "ロン"; el.ponBtn.disabled = !(isMyPendingPon() || canPon()); el.ponBtn.textContent = isMyPendingPon() ? `ポン実行 ${state.selectedPonTileIds.length}/2` : declaredPon() ? "ポン宣言済み" : "ポン"; el.kanBtn.disabled = !(state.kanMode || canKan()); el.kanBtn.textContent = state.kanMode ? `カン実行 ${state.selectedKanTileIds.length}枚` : "カン"; el.separatorAddBtn.disabled = !activeOwnHandControls() || isMyPendingPon() || isOtherPendingPon(); el.separatorRemoveBtn.disabled = !(activeOwnHandControls() && selectedIsSeparator() && !isMyPendingPon() && !state.kanMode); el.tsumoBtn.disabled = !(isMyTurn() && !state.kanMode); el.nextRoundBtn.disabled = !(isHost() && s.phase === "round_over" && !s.matchWinnerId); el.backLobbyFromGameBtn.disabled = !isHost(); el.rematchBtn.disabled = !isHost(); el.backLobbyResultBtn.disabled = !isHost(); if (claimWindowActive() || isOtherPendingPon()) { el.discardBtn.disabled = true; el.kanBtn.disabled = true; el.tsumoBtn.disabled = true; } }
+    const url = new URL(request.url);
+    const roomIdFromPath = decodeURIComponent(url.pathname.slice("/ws/".length)).trim();
+    if (roomIdFromPath) this.roomId = roomIdFromPath;
 
-    function renderJudge() { const s = state.serverState; const show = s.phase === "judge" && s.judge; el.judgePanel.classList.toggle("show", Boolean(show)); if (!show) { el.judgeTitle.textContent = ""; el.judgeHand.innerHTML = ""; el.voteRows.innerHTML = ""; return; } const judge = s.judge; const queueText = judge.ronQueueTotal ? ` (${judge.ronQueueIndex}/${judge.ronQueueTotal})` : ""; el.judgeTitle.textContent = `${playerNameById(judge.claimantId)} / ${judge.claimType}${queueText} / 公開手札`; el.judgeHand.innerHTML = ""; judge.revealedHand.forEach(item => el.judgeHand.appendChild(makeTile(item, ""))); if (judge.revealedMelds?.length) { const label = document.createElement("div"); label.className = "judgeMeldTitle"; label.textContent = "鳴き / カン"; el.judgeHand.appendChild(label); judge.revealedMelds.forEach(meld => el.judgeHand.appendChild(createMeldGroup({ playerId: "_judge", melds: [] }, meld))); } el.voteRows.innerHTML = ""; judge.requiredVoterIds.forEach(voterId => { const row = document.createElement("div"); row.className = "voteRow"; const vote = judge.votes[voterId] || "未投票"; row.innerHTML = `<div>${escapeHtml(playerNameById(voterId))}: ${escapeHtml(vote)}</div>`; const actions = document.createElement("div"); actions.className = "voteActions"; if (voterId === state.playerId) { actions.appendChild(voteButton("上がり", "good")); actions.appendChild(voteButton("異議あり", "blue")); actions.appendChild(voteButton("ダメだろ", "danger")); } else { const wait = document.createElement("span"); wait.textContent = "投票待ち"; actions.appendChild(wait); } row.appendChild(actions); el.voteRows.appendChild(row); }); }
-    function voteButton(vote, className) { const btn = document.createElement("button"); btn.className = className; btn.textContent = vote; btn.addEventListener("click", () => { if (vote === "異議あり") showCutIn("異議あり！！", "igi"); send({ t: "judge_vote", vote }); }); return btn; }
-    function renderResult() { const s = state.serverState; const show = s.phase === "round_over" && Boolean(s.matchWinnerId); el.resultPanel.classList.toggle("show", show); if (!show) { el.winnerTitle.textContent = ""; el.winnerSub.textContent = ""; return; } const winner = s.players.find(p => p.playerId === s.matchWinnerId); el.winnerTitle.textContent = `🏆 ${winner?.name || "不明"} の勝ち！`; el.winnerSub.textContent = `${winner?.score ?? "?"}点 / 勝利条件 ${s.targetScore}点`; }
-    function makeTile(item, extraClass = "") { const kind = itemKind(item); const text = itemText(item); const div = document.createElement("div"); div.className = `tile ${kind === "separator" ? "separator" : ""} ${extraClass}`.trim(); if (kind !== "separator" && ["ゃ", "ゅ", "ょ", "っ"].includes(text)) div.classList.add("smallKana"); div.textContent = kind === "separator" ? "" : text; div.title = kind === "separator" ? "区切り牌" : text; return div; }
-    function playerNameById(playerId) { const p = state.serverState?.players.find(x => x.playerId === playerId); return p ? p.name : "不明"; }
-    function maybeShowStateCutIn(previous, current) { if (previous && current.roundMessage !== previous.roundMessage && current.roundMessage && current.roundMessage.includes("がカンしました")) { const key = `kan:${current.roundMessage}`; if (state.lastCutInKey !== key) { state.lastCutInKey = key; showCutIn("カン"); } } if (previous?.pendingPon && !current?.pendingPon) { const ponPlayerId = previous.pendingPon.playerId; const beforePlayer = previous.players.find(p => p.playerId === ponPlayerId); const afterPlayer = current.players.find(p => p.playerId === ponPlayerId); const beforeMeldCount = beforePlayer?.melds?.length ?? 0; const afterMeldCount = afterPlayer?.melds?.length ?? 0; if (afterMeldCount > beforeMeldCount) { const key = `pon_done:${ponPlayerId}:${afterMeldCount}`; if (state.lastCutInKey !== key) { state.lastCutInKey = key; showCutIn("ポン"); } } return; } if (!current?.judge) return; const key = `${current.judge.claimantId}:${current.judge.claimType}:${current.judge.ronQueueIndex ?? "single"}`; const previousKey = previous?.judge ? `${previous.judge.claimantId}:${previous.judge.claimType}:${previous.judge.ronQueueIndex ?? "single"}` : ""; if (key !== previousKey && state.lastCutInKey !== key) { state.lastCutInKey = key; showCutIn(current.judge.claimType === "ツモ" ? "ツモ" : "ロン"); } }
-    function showCutIn(text, variant = "normal") { if (state.cutInTimer) clearTimeout(state.cutInTimer); el.cutInText.textContent = text; el.cutInText.className = variant === "igi" ? "cutInText igi" : "cutInText"; el.cutInOverlay.classList.remove("show"); void el.cutInOverlay.offsetWidth; el.cutInOverlay.classList.add("show"); state.cutInTimer = setTimeout(() => { el.cutInOverlay.classList.remove("show"); state.cutInTimer = null; }, 2000); }
-    function escapeHtml(value) { return String(value).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;"); }
+    const pair = new WebSocketPair();
+    const [client, server] = Object.values(pair);
 
-    el.hostBtn.addEventListener("click", connectAs);
-    el.joinBtn.addEventListener("click", connectAs);
-    el.backTitleBtn.addEventListener("click", () => disconnect(true));
-    el.disconnectBtn.addEventListener("click", () => disconnect(true));
-    el.disconnectFromGameBtn.addEventListener("click", () => disconnect(true));
-    el.addCpuBtn.addEventListener("click", () => send({ t: "add_cpu" }));
-    el.startGameBtn.addEventListener("click", () => send({ t: "start_game" }));
-    el.nextRoundBtn.addEventListener("click", () => send({ t: "next_round" }));
-    el.backLobbyFromGameBtn.addEventListener("click", () => send({ t: "back_lobby" }));
-    el.rematchBtn.addEventListener("click", () => send({ t: "start_game" }));
-    el.backLobbyResultBtn.addEventListener("click", () => send({ t: "back_lobby" }));
-    el.discardBtn.addEventListener("click", () => { if (!state.selectedTileId) { el.gameStatus.textContent = "出す牌を1枚選んでください。"; return; } if (selectedIsSeparator()) { el.gameStatus.textContent = "区切り牌は捨てられません。"; return; } if (!isMyTurn()) { el.gameStatus.textContent = "まだあなたの手番ではありません。"; return; } send({ t: "discard", tileId: state.selectedTileId }); });
-    el.ronBtn.addEventListener("click", () => { if (canRon()) send({ t: "ron" }); });
-    el.ponBtn.addEventListener("click", () => { if (isMyPendingPon()) { if (state.selectedPonTileIds.length === 0) { send({ t: "cancel_pon" }); return; } if (state.selectedPonTileIds.length !== 2) { el.gameStatus.textContent = "ポンするには自分の牌を2枚選んでください。未選択に戻してもう一度ポンでキャンセルできます。"; return; } send({ t: "confirm_pon", tileIds: state.selectedPonTileIds }); state.selectedPonTileIds = []; return; } if (canPon()) send({ t: "pon" }); });
-    el.kanBtn.addEventListener("click", () => { if (!state.kanMode) { if (!canKan()) { el.gameStatus.textContent = "カンは自分の手番だけ可能です。"; return; } state.kanMode = true; state.selectedKanTileIds = []; state.selectedTileId = null; el.gameStatus.textContent = "カン選択中です。自分の牌を4枚以上選んで、もう一度カンを押してください。未選択でもう一度押すとキャンセルします。"; renderMyHand(); renderGameActions(); return; } if (state.selectedKanTileIds.length === 0) { state.kanMode = false; state.selectedKanTileIds = []; el.gameStatus.textContent = "カンをキャンセルしました。"; renderMyHand(); renderGameActions(); return; } if (state.selectedKanTileIds.length < 4) { el.gameStatus.textContent = "カンするには4枚以上選んでください。"; return; } send({ t: "kan", tileIds: state.selectedKanTileIds }); state.kanMode = false; state.selectedKanTileIds = []; });
-    el.separatorAddBtn.addEventListener("click", () => send({ t: "add_separator" }));
-    el.separatorRemoveBtn.addEventListener("click", () => { if (!selectedIsSeparator()) { el.gameStatus.textContent = "削除する区切り牌を選んでください。"; return; } send({ t: "remove_separator", tileId: state.selectedTileId }); state.selectedTileId = null; });
-    el.tsumoBtn.addEventListener("click", () => { if (isMyTurn()) { showCutIn("ツモ"); send({ t: "tsumo_win" }); } });
-    el.targetScoreInput.addEventListener("change", () => { const score = Math.max(1, Math.min(20, Math.floor(Number(el.targetScoreInput.value) || 3))); el.targetScoreInput.value = String(score); send({ t: "set_target_score", targetScore: score }); });
-    el.reactionSecondsInput.addEventListener("change", () => { const seconds = Math.max(1, Math.min(15, Math.floor(Number(el.reactionSecondsInput.value) || 5))); el.reactionSecondsInput.value = String(seconds); send({ t: "set_reaction_seconds", reactionSeconds: seconds }); });
-    el.nameInput.addEventListener("change", () => { const name = normalizeName(el.nameInput.value); el.nameInput.value = name; if (state.connected) send({ t: "set_name", name }); });
-    applyUrlParams();
-  </script>
-</body>
-</html>
+    const playerId = crypto.randomUUID();
+    server.serializeAttachment({ playerId } satisfies SocketAttachment);
+    this.ctx.acceptWebSocket(server);
+
+    try {
+      this.addOrReconnectPlayer(playerId, "名無し");
+      this.send(server, { t: "hello", playerId });
+      this.broadcastState();
+      await this.persistState();
+    } catch (error) {
+      this.sendError(server, error instanceof Error ? error.message : "接続に失敗しました。");
+      server.close(1011, "failed to join room");
+    }
+
+    return new Response(null, { status: 101, webSocket: client });
+  }
+
+  async webSocketMessage(ws: WebSocket, message: ArrayBuffer | string): Promise<void> {
+    await this.ensureLoaded();
+
+    const attachment = ws.deserializeAttachment() as SocketAttachment | undefined;
+    if (!attachment?.playerId) {
+      this.sendError(ws, "playerId が見つかりません。");
+      return;
+    }
+
+    let data: ClientMessage;
+    try {
+      const text = typeof message === "string" ? message : new TextDecoder().decode(message);
+      data = JSON.parse(text) as ClientMessage;
+    } catch {
+      this.sendError(ws, "JSONの形式が不正です。");
+      return;
+    }
+
+    try {
+      this.handleMessage(attachment.playerId, data);
+      await this.persistState();
+    } catch (error) {
+      this.sendError(ws, error instanceof Error ? error.message : "不明なエラーです。");
+    }
+  }
+
+  async webSocketClose(ws: WebSocket): Promise<void> {
+    await this.ensureLoaded();
+    this.markDisconnected(ws);
+    this.broadcastState();
+    await this.persistState();
+  }
+
+  async webSocketError(ws: WebSocket): Promise<void> {
+    await this.ensureLoaded();
+    this.markDisconnected(ws);
+    this.broadcastState();
+    await this.persistState();
+  }
+
+  async alarm(): Promise<void> {
+    await this.ensureLoaded();
+
+    if (this.phase === "play" && this.claimWindow && Date.now() >= this.claimWindow.endsAt) {
+      this.clearReactionTimer();
+      this.resolveClaimWindow();
+      await this.persistState();
+    }
+  }
+
+  private async ensureLoaded(): Promise<void> {
+    if (this.loaded) return;
+
+    const stored = await this.ctx.storage.get<StoredRoomState>(STORAGE_KEY);
+    if (stored) {
+      this.roomId = stored.roomId;
+      this.phase = stored.phase;
+      this.targetScore = stored.targetScore;
+      this.reactionSeconds = stored.reactionSeconds;
+      this.hostPlayerId = stored.hostPlayerId;
+      this.currentPlayerId = stored.currentPlayerId;
+      this.lastDiscardTile = stored.lastDiscardTile;
+      this.lastDiscarderId = stored.lastDiscarderId;
+      this.claimableDiscard = stored.claimableDiscard;
+      this.claimWindow = stored.claimWindow;
+      this.ronJudgeQueue = stored.ronJudgeQueue;
+      this.wall = stored.wall;
+      this.matchWinnerId = stored.matchWinnerId;
+      this.roundMessage = stored.roundMessage;
+      this.nextTileNo = stored.nextTileNo;
+      this.nextSeparatorNo = stored.nextSeparatorNo;
+      this.nextMeldNo = stored.nextMeldNo;
+      this.players = new Map(stored.players.map((player) => [player.playerId, player]));
+      this.judge = stored.judge;
+      this.pendingPon = stored.pendingPon;
+    }
+
+    this.loaded = true;
+
+    if (this.phase === "play" && this.claimWindow) {
+      if (Date.now() >= this.claimWindow.endsAt) {
+        this.resolveClaimWindow();
+        await this.persistState();
+      } else {
+        this.scheduleResolveClaimWindow();
+      }
+    }
+  }
+
+  private toStoredState(): StoredRoomState {
+    return {
+      schemaVersion: 1,
+      roomId: this.roomId,
+      phase: this.phase,
+      targetScore: this.targetScore,
+      reactionSeconds: this.reactionSeconds,
+      hostPlayerId: this.hostPlayerId,
+      currentPlayerId: this.currentPlayerId,
+      lastDiscardTile: this.lastDiscardTile,
+      lastDiscarderId: this.lastDiscarderId,
+      claimableDiscard: this.claimableDiscard,
+      claimWindow: this.claimWindow,
+      ronJudgeQueue: this.ronJudgeQueue,
+      wall: this.wall,
+      matchWinnerId: this.matchWinnerId,
+      roundMessage: this.roundMessage,
+      nextTileNo: this.nextTileNo,
+      nextSeparatorNo: this.nextSeparatorNo,
+      nextMeldNo: this.nextMeldNo,
+      players: [...this.players.values()],
+      judge: this.judge,
+      pendingPon: this.pendingPon,
+    };
+  }
+
+  private async persistState(): Promise<void> {
+    await this.ctx.storage.put(STORAGE_KEY, this.toStoredState());
+    if (this.claimWindow) {
+      await this.ctx.storage.setAlarm(this.claimWindow.endsAt);
+    }
+  }
+
+  private handleMessage(playerId: string, data: ClientMessage): void {
+    switch (data.t) {
+      case "join": {
+        const player = this.requirePlayer(playerId);
+        player.name = cleanName(data.name ?? player.name);
+        player.connected = true;
+        this.broadcastState();
+        return;
+      }
+      case "set_name": {
+        this.requirePlayer(playerId).name = cleanName(data.name);
+        this.broadcastState();
+        return;
+      }
+      case "set_target_score": {
+        this.requireHost(playerId);
+        if (this.phase !== "lobby") throw new Error("対局中は勝利点を変更できません。");
+        const score = Math.floor(Number(data.targetScore));
+        if (!Number.isFinite(score) || score < 1 || score > 20) throw new Error("勝利点は1〜20で指定してください。");
+        this.targetScore = score;
+        this.broadcastState();
+        return;
+      }
+      case "set_reaction_seconds": {
+        this.requireHost(playerId);
+        if (this.phase !== "lobby") throw new Error("対局中はロン/ポン受付時間を変更できません。");
+        const seconds = Math.floor(Number(data.reactionSeconds));
+        if (!Number.isFinite(seconds) || seconds < MIN_REACTION_SECONDS || seconds > MAX_REACTION_SECONDS) {
+          throw new Error(`ロン/ポン受付時間は${MIN_REACTION_SECONDS}〜${MAX_REACTION_SECONDS}秒で指定してください。`);
+        }
+        this.reactionSeconds = seconds;
+        this.broadcastState();
+        return;
+      }
+      case "add_cpu": {
+        this.requireHost(playerId);
+        if (this.phase !== "lobby") throw new Error("対局中はCPUを追加できません。");
+        if (this.players.size >= MAX_PLAYERS) throw new Error("参加人数は最大4人です。");
+        const cpuId = `cpu_${crypto.randomUUID()}`;
+        const seatIndex = this.nextSeatIndex();
+        this.players.set(cpuId, {
+          playerId: cpuId,
+          name: `CPU ${seatIndex}`,
+          seatIndex,
+          isHost: false,
+          isCpu: true,
+          connected: true,
+          score: 0,
+          isOut: false,
+          hand: [],
+          discards: [],
+          melds: [],
+        });
+        this.broadcastState();
+        return;
+      }
+      case "start_game": {
+        this.requireHost(playerId);
+        if (this.phase !== "lobby" && this.phase !== "round_over") throw new Error("今はゲームを開始できません。");
+        if (this.players.size < 2) throw new Error("2人以上で開始してください。CPUを追加できます。");
+        for (const player of this.players.values()) player.score = 0;
+        this.matchWinnerId = null;
+        this.startRound();
+        return;
+      }
+      case "discard": {
+        this.discard(playerId, data.tileId);
+        return;
+      }
+      case "reorder_hand": {
+        this.reorderHand(playerId, data.fromIndex, data.toIndex);
+        return;
+      }
+      case "add_separator": {
+        this.addSeparator(playerId);
+        return;
+      }
+      case "remove_separator": {
+        this.removeSeparator(playerId, data.tileId);
+        return;
+      }
+      case "tsumo_win": {
+        this.claimTsumo(playerId);
+        return;
+      }
+      case "ron": {
+        this.registerRonClaim(playerId);
+        return;
+      }
+      case "pon": {
+        this.registerPonClaim(playerId);
+        return;
+      }
+      case "confirm_pon": {
+        this.confirmPon(playerId, data.tileIds);
+        return;
+      }
+      case "cancel_pon": {
+        this.cancelPon(playerId);
+        return;
+      }
+      case "kan": {
+        this.kan(playerId, data.tileIds);
+        return;
+      }
+      case "reorder_meld": {
+        this.reorderMeld(playerId, data.meldId, data.fromIndex, data.toIndex);
+        return;
+      }
+      case "judge_vote": {
+        this.judgeVote(playerId, data.vote);
+        return;
+      }
+      case "next_round": {
+        this.requireHost(playerId);
+        if (this.phase !== "round_over") throw new Error("ラウンド終了時だけ次のラウンドへ進めます。");
+        if (this.matchWinnerId) throw new Error("勝者が決まっています。待機へ戻るか再戦してください。");
+        this.startRound();
+        return;
+      }
+      case "back_lobby": {
+        this.requireHost(playerId);
+        this.backToLobby();
+        this.broadcastState();
+        return;
+      }
+      default: {
+        const neverValue: never = data;
+        throw new Error(`未対応のメッセージです: ${JSON.stringify(neverValue)}`);
+      }
+    }
+  }
+
+  private startRound(): void {
+    this.clearCpuTimer();
+    this.clearReactionTimer();
+    this.phase = "play";
+    this.currentPlayerId = null;
+    this.lastDiscardTile = "";
+    this.lastDiscarderId = null;
+    this.claimableDiscard = false;
+    this.claimWindow = null;
+    this.ronJudgeQueue = null;
+    this.judge = null;
+    this.pendingPon = null;
+    this.roundMessage = "";
+    this.nextTileNo = 1;
+    this.nextSeparatorNo = 1;
+    this.nextMeldNo = 1;
+    this.wall = this.createWall();
+
+    for (const player of this.players.values()) {
+      player.isOut = false;
+      player.hand = [];
+      player.discards = [];
+      player.melds = [];
+    }
+
+    for (let n = 0; n < INITIAL_HAND_COUNT; n++) {
+      for (const player of this.playersBySeat()) {
+        const tile = this.wall.shift();
+        if (tile) player.hand.push(tile);
+      }
+    }
+
+    for (const player of this.players.values()) this.sortHand(player.hand);
+
+    const first = this.playersBySeat().find((p) => !p.isOut) ?? null;
+    if (!first) throw new Error("開始できるプレイヤーがいません。");
+
+    this.startTurn(first.playerId);
+    this.broadcastState();
+    this.scheduleCpuIfNeeded(CPU_THINK_MS);
+  }
+
+  private discard(playerId: string, tileId: string): void {
+    if (this.phase !== "play") throw new Error("対局中ではありません。");
+    if (this.pendingPon) throw new Error("ポン選択中です。ポンを確定またはキャンセルしてください。");
+    if (this.claimWindow) throw new Error("ロン/ポン受付中です。今は捨てられません。");
+    if (this.currentPlayerId !== playerId) throw new Error("あなたの手番ではありません。");
+
+    const player = this.requirePlayer(playerId);
+    if (player.isOut) throw new Error("このラウンドは降りています。");
+
+    const index = player.hand.findIndex((tile) => tile.id === tileId);
+    if (index < 0) throw new Error("指定された牌を持っていません。");
+    if (player.hand[index].kind === "separator") throw new Error("区切り牌は捨てられません。");
+
+    const [tile] = player.hand.splice(index, 1);
+    player.discards.push(tile.text);
+    this.lastDiscardTile = tile.text;
+    this.lastDiscarderId = playerId;
+    this.claimableDiscard = true;
+    this.currentPlayerId = null;
+
+    const startedAt = Date.now();
+    this.claimWindow = {
+      discarderId: playerId,
+      discardText: tile.text,
+      startedAt,
+      endsAt: startedAt + this.reactionSeconds * 1000,
+      ronClaimantIds: [],
+      ponClaimantIds: [],
+    };
+
+    this.roundMessage = `${player.name} が「${tile.text}」を出しました。ロン/ポン受付中です。`;
+    this.broadcastState();
+    this.scheduleResolveClaimWindow();
+  }
+
+  private registerRonClaim(playerId: string): void {
+    if (this.phase !== "play") throw new Error("対局中ではありません。");
+    if (!this.claimWindow || !this.claimableDiscard) throw new Error("ロン対象の捨て牌がありません。受付時間が過ぎた捨て牌にはロンできません。");
+    if (this.claimWindow.discarderId === playerId) throw new Error("自分の捨て牌にはロンできません。");
+
+    const player = this.requirePlayer(playerId);
+    if (player.isOut) throw new Error("このラウンドは降りています。");
+    if (!this.claimWindow.ronClaimantIds.includes(playerId)) {
+      this.claimWindow.ronClaimantIds.push(playerId);
+    }
+    this.roundMessage = `${player.name} がロンを宣言しました。受付終了後に処理します。`;
+    this.broadcastState();
+  }
+
+  private registerPonClaim(playerId: string): void {
+    if (this.phase !== "play") throw new Error("対局中ではありません。");
+    if (!this.claimWindow || !this.claimableDiscard) throw new Error("ポン対象の捨て牌がありません。受付時間が過ぎた捨て牌にはポンできません。");
+    if (this.claimWindow.discarderId === playerId) throw new Error("自分の捨て牌にはポンできません。");
+
+    const player = this.requirePlayer(playerId);
+    if (player.isOut) throw new Error("このラウンドは降りています。");
+    if (player.hand.filter((tile) => tile.kind === "tile").length < 2) throw new Error("ポンには自分の牌が2枚必要です。");
+    if (!this.claimWindow.ponClaimantIds.includes(playerId)) {
+      this.claimWindow.ponClaimantIds.push(playerId);
+    }
+    this.roundMessage = `${player.name} がポンを宣言しました。ロンがなければ受付終了後に処理します。`;
+    this.broadcastState();
+  }
+
+  private scheduleResolveClaimWindow(): void {
+    this.clearCpuTimer();
+    this.clearReactionTimer();
+    const delay = Math.max(0, this.claimWindow ? this.claimWindow.endsAt - Date.now() : 0);
+
+    if (this.claimWindow) {
+      void this.ctx.storage.setAlarm(this.claimWindow.endsAt);
+    }
+
+    this.reactionTimer = setTimeout(() => {
+      this.reactionTimer = null;
+      void (async () => {
+        await this.ensureLoaded();
+        this.resolveClaimWindow();
+        await this.persistState();
+      })();
+    }, delay);
+  }
+
+  private resolveClaimWindow(): void {
+    if (this.phase !== "play" || !this.claimWindow) return;
+
+    const window = this.claimWindow;
+    this.claimWindow = null;
+    this.claimableDiscard = false;
+
+    const validRonIds = this.sortClaimantsByTurnOrder(
+      window.discarderId,
+      window.ronClaimantIds.filter((id) => this.canStillReact(id, window.discarderId)),
+    );
+
+    const validPonIds = window.ponClaimantIds.filter((id) => this.canStillReact(id, window.discarderId));
+
+    if (validRonIds.length > 0) {
+      this.ronJudgeQueue = {
+        discarderId: window.discarderId,
+        discardText: window.discardText,
+        claimantIds: validRonIds,
+        currentIndex: 0,
+        results: {},
+        ponCandidateIds: validPonIds,
+        resumePlayerId: this.nextActivePlayerAfter(window.discarderId)?.playerId ?? null,
+      };
+      this.enterCurrentRonJudge();
+      return;
+    }
+
+    if (validPonIds.length > 0) {
+      this.startPendingPon(validPonIds[0], window.discarderId, window.discardText);
+      return;
+    }
+
+    this.advanceTurnAfterReaction(window.discarderId);
+  }
+
+  private enterCurrentRonJudge(): void {
+    if (!this.ronJudgeQueue) return;
+
+    const claimantId = this.ronJudgeQueue.claimantIds[this.ronJudgeQueue.currentIndex];
+    if (!claimantId) {
+      this.finishRonJudgeQueue();
+      return;
+    }
+
+    const claimant = this.players.get(claimantId);
+    if (!claimant || claimant.isOut) {
+      this.ronJudgeQueue.results[claimantId] = "rejected";
+      this.ronJudgeQueue.currentIndex += 1;
+      this.enterCurrentRonJudge();
+      return;
+    }
+
+    this.phase = "judge";
+    this.currentPlayerId = null;
+    this.pendingPon = null;
+    this.judge = {
+      claimantId,
+      claimType: "ロン",
+      revealedHand: [...this.handToRevealItems(claimant.hand), { text: this.ronJudgeQueue.discardText, kind: "tile" }],
+      claimedDiscardTile: this.ronJudgeQueue.discardText,
+      fromDiscarderId: this.ronJudgeQueue.discarderId,
+      resumePlayerId: this.ronJudgeQueue.resumePlayerId,
+      votes: {},
+    };
+
+    this.roundMessage = `${claimant.name} のロンをジャッジ中です。${this.ronJudgeQueue.currentIndex + 1}/${this.ronJudgeQueue.claimantIds.length}`;
+    this.broadcastState();
+  }
+
+  private handleRonQueueJudgeVote(): boolean {
+    if (!this.ronJudgeQueue || !this.judge || this.judge.claimType !== "ロン") return false;
+
+    const requiredVoterIds = this.requiredVoterIds();
+    const allVoted = requiredVoterIds.every((id) => this.judge?.votes[id]);
+    const allAgari = requiredVoterIds.length > 0 && requiredVoterIds.every((id) => this.judge?.votes[id] === "上がり");
+    const allDame = requiredVoterIds.length > 0 && requiredVoterIds.every((id) => this.judge?.votes[id] === "ダメだろ");
+
+    if (allAgari) {
+      this.ronJudgeQueue.results[this.judge.claimantId] = "accepted";
+      this.ronJudgeQueue.currentIndex += 1;
+      this.judge = null;
+      this.enterCurrentRonJudge();
+      return true;
+    }
+
+    if (allDame) {
+      const claimant = this.players.get(this.judge.claimantId);
+      if (claimant) {
+        claimant.isOut = true;
+        claimant.hand = [];
+      }
+      this.ronJudgeQueue.results[this.judge.claimantId] = "rejected";
+      this.ronJudgeQueue.currentIndex += 1;
+      this.judge = null;
+      this.enterCurrentRonJudge();
+      return true;
+    }
+
+    if (allVoted) this.roundMessage = "投票が割れています。話し合って投票を変更してください。";
+    this.broadcastState();
+    return true;
+  }
+
+  private finishRonJudgeQueue(): void {
+    if (!this.ronJudgeQueue) return;
+
+    const queue = this.ronJudgeQueue;
+    const acceptedIds = queue.claimantIds.filter((id) => queue.results[id] === "accepted");
+    this.ronJudgeQueue = null;
+    this.judge = null;
+    this.phase = "play";
+    this.currentPlayerId = null;
+    this.claimableDiscard = false;
+
+    if (acceptedIds.length > 0) {
+      const acceptedNames: string[] = [];
+      for (const id of acceptedIds) {
+        const player = this.players.get(id);
+        if (!player) continue;
+        player.score += 1;
+        acceptedNames.push(player.name);
+      }
+
+      const matchWinners = acceptedIds
+        .map((id) => this.players.get(id))
+        .filter((player): player is PlayerState => Boolean(player && player.score >= this.targetScore));
+
+      this.lastDiscardTile = "";
+      this.lastDiscarderId = null;
+      this.phase = "round_over";
+      this.currentPlayerId = null;
+
+      if (matchWinners.length > 0) {
+        this.matchWinnerId = matchWinners[0].playerId;
+        this.roundMessage = `${matchWinners.map((p) => p.name).join("、")} が${this.targetScore}点に到達して勝利しました。`;
+      } else {
+        this.roundMessage = `${acceptedNames.join("、")} のロンが承認されました。各+1点です。`;
+      }
+      this.broadcastState();
+      return;
+    }
+
+    if (queue.ponCandidateIds.length > 0) {
+      this.startPendingPon(queue.ponCandidateIds[0], queue.discarderId, queue.discardText);
+      return;
+    }
+
+    this.advanceTurnAfterReaction(queue.discarderId);
+  }
+
+  private startPendingPon(playerId: string, discarderId: string, discardText: string): void {
+    const player = this.players.get(playerId);
+    if (!player || player.isOut) {
+      this.advanceTurnAfterReaction(discarderId);
+      return;
+    }
+
+    this.phase = "play";
+    this.clearCpuTimer();
+    this.clearReactionTimer();
+    this.claimableDiscard = false;
+    this.pendingPon = {
+      playerId,
+      discardText,
+      discarderId,
+      resumePlayerId: this.nextActivePlayerAfter(discarderId)?.playerId ?? null,
+    };
+    this.currentPlayerId = playerId;
+    this.roundMessage = `${player.name} のポンを処理します。自分の牌を2枚選んでください。`;
+    this.broadcastState();
+  }
+
+  private confirmPon(playerId: string, tileIds: string[]): void {
+    if (this.phase !== "play") throw new Error("対局中ではありません。");
+    if (!this.pendingPon || this.pendingPon.playerId !== playerId) throw new Error("あなたはポン選択中ではありません。");
+    if (!Array.isArray(tileIds) || tileIds.length !== 2) throw new Error("ポンする牌を2枚選んでください。");
+
+    const player = this.requirePlayer(playerId);
+    const uniqueIds = [...new Set(tileIds)];
+    if (uniqueIds.length !== 2) throw new Error("同じ牌を二重に選択しています。");
+
+    const selected = uniqueIds.map((id) => player.hand.find((tile) => tile.id === id));
+    if (selected.some((tile) => !tile)) throw new Error("選択した牌を持っていません。");
+    if (selected.some((tile) => tile!.kind !== "tile")) throw new Error("区切り牌はポンに使えません。");
+
+    const selectedTexts = selected.map((tile) => tile!.text);
+    player.hand = player.hand.filter((tile) => !uniqueIds.includes(tile.id));
+
+    const discarder = this.requirePlayer(this.pendingPon.discarderId);
+    const lastIndex = discarder.discards.length - 1;
+    if (lastIndex >= 0 && discarder.discards[lastIndex] === this.pendingPon.discardText) {
+      discarder.discards.splice(lastIndex, 1);
+    }
+
+    player.melds.push(this.makeMeld([this.pendingPon.discardText, ...selectedTexts]));
+
+    this.currentPlayerId = playerId;
+    this.claimableDiscard = false;
+    this.lastDiscardTile = "";
+    this.lastDiscarderId = null;
+    this.pendingPon = null;
+    this.roundMessage = `${player.name} がポンしました。1枚出してください。`;
+    this.broadcastState();
+  }
+
+  private cancelPon(playerId: string): void {
+    if (!this.pendingPon || this.pendingPon.playerId !== playerId) throw new Error("あなたはポン選択中ではありません。");
+    const discarderId = this.pendingPon.discarderId;
+    this.pendingPon = null;
+    this.currentPlayerId = null;
+    this.roundMessage = "ポンをキャンセルしました。次の手番へ進みます。";
+    this.broadcastState();
+    this.advanceTurnAfterReaction(discarderId);
+  }
+
+  private canStillReact(playerId: string, discarderId: string): boolean {
+    if (playerId === discarderId) return false;
+    const player = this.players.get(playerId);
+    return Boolean(player && !player.isOut);
+  }
+
+  private sortClaimantsByTurnOrder(discarderId: string, claimantIds: string[]): string[] {
+    const unique = [...new Set(claimantIds)];
+    const players = this.playersBySeat().filter((p) => !p.isOut);
+    if (players.length <= 0) return unique;
+
+    const discarderIndex = players.findIndex((p) => p.playerId === discarderId);
+    const order = new Map<string, number>();
+    for (let offset = 1; offset <= players.length; offset++) {
+      const index = discarderIndex < 0 ? offset - 1 : (discarderIndex + offset) % players.length;
+      order.set(players[index].playerId, offset);
+    }
+
+    return unique.sort((a, b) => (order.get(a) ?? 999) - (order.get(b) ?? 999));
+  }
+
+  private reorderHand(playerId: string, fromIndex: number, toIndex: number): void {
+    if (this.phase === "lobby" || this.phase === "round_over") throw new Error("今は手札を並び替えできません。");
+    const player = this.requirePlayer(playerId);
+    const from = Math.floor(Number(fromIndex));
+    const to = Math.floor(Number(toIndex));
+    if (!Number.isFinite(from) || !Number.isFinite(to)) throw new Error("並び替え位置が不正です。");
+    if (from < 0 || to < 0 || from >= player.hand.length || to >= player.hand.length) throw new Error("並び替え位置が範囲外です。");
+    if (from === to) return;
+
+    const [item] = player.hand.splice(from, 1);
+    player.hand.splice(to, 0, item);
+    this.syncJudgeRevealIfClaimant(playerId);
+    this.broadcastState();
+  }
+
+  private addSeparator(playerId: string): void {
+    if (this.phase === "lobby" || this.phase === "round_over") throw new Error("今は区切り牌を追加できません。");
+    const player = this.requirePlayer(playerId);
+    const count = player.hand.filter((tile) => tile.kind === "separator").length;
+    if (count >= MAX_SEPARATORS_PER_PLAYER) throw new Error(`区切り牌は最大${MAX_SEPARATORS_PER_PLAYER}個までです。`);
+    player.hand.push({ id: `sep_${this.nextSeparatorNo++}_${crypto.randomUUID()}`, text: "", kind: "separator" });
+    this.syncJudgeRevealIfClaimant(playerId);
+    this.broadcastState();
+  }
+
+  private removeSeparator(playerId: string, tileId: string): void {
+    const player = this.requirePlayer(playerId);
+    const index = player.hand.findIndex((tile) => tile.id === tileId);
+    if (index < 0) throw new Error("指定された区切り牌が見つかりません。");
+    if (player.hand[index].kind !== "separator") throw new Error("削除できるのは区切り牌だけです。");
+    player.hand.splice(index, 1);
+    this.syncJudgeRevealIfClaimant(playerId);
+    this.broadcastState();
+  }
+
+  private kan(playerId: string, tileIds: string[]): void {
+    if (this.phase !== "play") throw new Error("対局中ではありません。");
+    if (this.pendingPon) throw new Error("ポン選択中はカンできません。");
+    if (this.claimWindow) throw new Error("ロン/ポン受付中はカンできません。");
+    if (this.currentPlayerId !== playerId) throw new Error("カンは自分の手番だけ可能です。");
+
+    const player = this.requirePlayer(playerId);
+    if (player.isOut) throw new Error("このラウンドは降りています。");
+    if (!Array.isArray(tileIds) || tileIds.length < 4) throw new Error("カンするには自分の牌を4枚以上選んでください。");
+
+    const uniqueIds = [...new Set(tileIds)];
+    if (uniqueIds.length !== tileIds.length) throw new Error("同じ牌を二重に選択しています。");
+
+    const selected = uniqueIds.map((id) => player.hand.find((tile) => tile.id === id));
+    if (selected.some((tile) => !tile)) throw new Error("選択した牌を持っていません。");
+    if (selected.some((tile) => tile!.kind !== "tile")) throw new Error("区切り牌はカンに使えません。");
+
+    const selectedTexts = selected.map((tile) => tile!.text);
+    player.hand = player.hand.filter((tile) => !uniqueIds.includes(tile.id));
+    player.melds.push(this.makeMeld(selectedTexts));
+
+    const drawCount = Math.max(0, uniqueIds.length - 3);
+    let actualDraw = 0;
+    for (let i = 0; i < drawCount; i++) {
+      const tile = this.wall.shift();
+      if (!tile) break;
+      player.hand.push(tile);
+      actualDraw++;
+    }
+
+    this.claimableDiscard = false;
+    this.lastDiscardTile = "";
+    this.lastDiscarderId = null;
+    this.roundMessage = `${player.name} がカンしました。${actualDraw}枚補充しました。1枚出してください。`;
+    this.broadcastState();
+  }
+
+  private reorderMeld(playerId: string, meldId: string, fromIndex: number, toIndex: number): void {
+    const player = this.requirePlayer(playerId);
+    const meld = player.melds.find((m) => m.id === meldId);
+    if (!meld) throw new Error("指定された鳴き枠が見つかりません。");
+
+    const from = Math.floor(Number(fromIndex));
+    const to = Math.floor(Number(toIndex));
+    if (!Number.isFinite(from) || !Number.isFinite(to)) throw new Error("並び替え位置が不正です。");
+    if (from < 0 || to < 0 || from >= meld.tiles.length || to >= meld.tiles.length) throw new Error("並び替え位置が範囲外です。");
+    if (from === to) return;
+
+    const [tile] = meld.tiles.splice(from, 1);
+    meld.tiles.splice(to, 0, tile);
+    this.broadcastState();
+  }
+
+  private claimTsumo(playerId: string): void {
+    if (this.phase !== "play") throw new Error("対局中ではありません。");
+    if (this.pendingPon) throw new Error("ポン選択中です。");
+    if (this.claimWindow) throw new Error("ロン/ポン受付中です。");
+    if (this.currentPlayerId !== playerId) throw new Error("ツモ上がりは自分の手番だけ可能です。");
+    const player = this.requirePlayer(playerId);
+    if (player.isOut) throw new Error("このラウンドは降りています。");
+
+    this.enterJudge({
+      claimantId: playerId,
+      claimType: "ツモ",
+      revealedHand: this.handToRevealItems(player.hand),
+      claimedDiscardTile: "",
+      fromDiscarderId: null,
+      resumePlayerId: this.currentPlayerId,
+      votes: {},
+    });
+  }
+
+  private enterJudge(judge: JudgeState): void {
+    this.clearCpuTimer();
+    this.clearReactionTimer();
+    this.phase = "judge";
+    this.judge = judge;
+    this.pendingPon = null;
+    this.currentPlayerId = null;
+    this.roundMessage = `${this.players.get(judge.claimantId)?.name ?? "不明"} が${judge.claimType}を宣言しました。`;
+    this.broadcastState();
+  }
+
+  private judgeVote(playerId: string, vote: JudgeVote): void {
+    if (this.phase !== "judge" || !this.judge) throw new Error("現在はジャッジ中ではありません。");
+    const player = this.requirePlayer(playerId);
+    if (player.isCpu) throw new Error("CPUは投票できません。");
+    if (!player.connected) throw new Error("切断中のプレイヤーは投票できません。");
+    if (vote !== "上がり" && vote !== "異議あり" && vote !== "ダメだろ") throw new Error("不正な投票です。");
+
+    this.judge.votes[playerId] = vote;
+
+    if (this.handleRonQueueJudgeVote()) return;
+
+    const requiredVoterIds = this.requiredVoterIds();
+    const allVoted = requiredVoterIds.every((id) => this.judge?.votes[id]);
+    const allAgari = requiredVoterIds.length > 0 && requiredVoterIds.every((id) => this.judge?.votes[id] === "上がり");
+    const allDame = requiredVoterIds.length > 0 && requiredVoterIds.every((id) => this.judge?.votes[id] === "ダメだろ");
+
+    if (allAgari) {
+      this.acceptJudge();
+      return;
+    }
+    if (allDame) {
+      this.rejectJudgeAsDame();
+      return;
+    }
+    if (allVoted) this.roundMessage = "投票が割れています。話し合って投票を変更してください。";
+    this.broadcastState();
+  }
+
+  private acceptJudge(): void {
+    if (!this.judge) return;
+    const winner = this.requirePlayer(this.judge.claimantId);
+    winner.score += 1;
+    this.claimableDiscard = false;
+    this.lastDiscardTile = "";
+    this.lastDiscarderId = null;
+
+    if (winner.score >= this.targetScore) {
+      this.matchWinnerId = winner.playerId;
+      this.phase = "round_over";
+      this.currentPlayerId = null;
+      this.roundMessage = `${winner.name} が${this.targetScore}点に到達して勝利しました。`;
+      this.judge = null;
+      this.broadcastState();
+      return;
+    }
+
+    this.phase = "round_over";
+    this.currentPlayerId = null;
+    this.roundMessage = `${winner.name} の上がりが承認されました。+1点です。`;
+    this.judge = null;
+    this.broadcastState();
+  }
+
+  private rejectJudgeAsDame(): void {
+    if (!this.judge) return;
+    const claimant = this.requirePlayer(this.judge.claimantId);
+    claimant.isOut = true;
+    claimant.hand = [];
+
+    const resumePlayerId = this.judge.resumePlayerId;
+    this.phase = "play";
+    this.judge = null;
+    this.roundMessage = `${claimant.name} の上がりは却下され、このラウンド降りになりました。`;
+
+    const active = this.playersBySeat().filter((p) => !p.isOut);
+    if (active.length <= 1) {
+      this.phase = "round_over";
+      this.currentPlayerId = null;
+      this.roundMessage = "残り人数が1人以下になったためラウンド終了です。";
+      this.broadcastState();
+      return;
+    }
+
+    if (resumePlayerId && this.players.get(resumePlayerId) && !this.players.get(resumePlayerId)?.isOut) {
+      this.startTurn(resumePlayerId);
+    } else if (this.lastDiscarderId) {
+      const next = this.nextActivePlayerAfter(this.lastDiscarderId) ?? active[0];
+      this.startTurn(next.playerId);
+    } else {
+      this.startTurn(active[0].playerId);
+    }
+
+    this.broadcastState();
+    this.scheduleCpuIfNeeded(CPU_THINK_MS);
+  }
+
+  private syncJudgeRevealIfClaimant(playerId: string): void {
+    if (!this.judge || this.judge.claimantId !== playerId) return;
+    const player = this.players.get(playerId);
+    if (!player) return;
+    this.judge.revealedHand = this.handToRevealItems(player.hand);
+    if (this.judge.claimType === "ロン" && this.judge.claimedDiscardTile) {
+      this.judge.revealedHand.push({ text: this.judge.claimedDiscardTile, kind: "tile" });
+    }
+  }
+
+  private handToRevealItems(hand: Tile[]): RevealItem[] {
+    return hand.map((tile) => ({ text: tile.text, kind: tile.kind }));
+  }
+
+  private requiredVoterIds(): string[] {
+    return this.playersBySeat().filter((player) => !player.isCpu && player.connected).map((player) => player.playerId);
+  }
+
+  private clearReactionTimer(): void {
+    if (this.reactionTimer) clearTimeout(this.reactionTimer);
+    this.reactionTimer = null;
+  }
+
+  private advanceTurnAfterReaction(discarderId: string): void {
+    if (this.phase !== "play" || this.pendingPon) return;
+
+    this.claimableDiscard = false;
+    this.claimWindow = null;
+
+    const next = this.nextActivePlayerAfter(discarderId);
+    if (!next) {
+      this.phase = "round_over";
+      this.currentPlayerId = null;
+      this.roundMessage = "次の手番が見つからないためラウンド終了です。";
+      this.broadcastState();
+      return;
+    }
+
+    this.startTurn(next.playerId);
+    this.broadcastState();
+    this.scheduleCpuIfNeeded(CPU_THINK_MS);
+  }
+
+  private startTurn(playerId: string): void {
+    this.currentPlayerId = playerId;
+    this.drawForTurn(playerId);
+  }
+
+  private drawForTurn(playerId: string): void {
+    const player = this.requirePlayer(playerId);
+    if (this.wall.length <= 0) {
+      this.phase = "round_over";
+      this.currentPlayerId = null;
+      this.roundMessage = "山切れです。流局扱いです。";
+      return;
+    }
+    const tile = this.wall.shift();
+    if (tile) player.hand.push(tile);
+  }
+
+  private scheduleCpuIfNeeded(delayMs: number): void {
+    this.clearCpuTimer();
+    if (this.phase !== "play" || this.pendingPon || this.reactionTimer || this.claimWindow) return;
+    const current = this.currentPlayerId ? this.players.get(this.currentPlayerId) : null;
+    if (!current?.isCpu) return;
+    this.cpuTimer = setTimeout(() => {
+      this.cpuTimer = null;
+      void (async () => {
+        await this.ensureLoaded();
+        this.runCpuIfNeeded();
+        await this.persistState();
+      })();
+    }, delayMs);
+  }
+
+  private clearCpuTimer(): void {
+    if (this.cpuTimer) clearTimeout(this.cpuTimer);
+    this.cpuTimer = null;
+  }
+
+  private runCpuIfNeeded(): void {
+    if (this.phase !== "play" || this.pendingPon || this.reactionTimer || this.claimWindow) return;
+    const current = this.currentPlayerId ? this.players.get(this.currentPlayerId) : null;
+    if (!current?.isCpu) return;
+    const candidates = current.hand.filter((tile) => tile.kind === "tile");
+    if (candidates.length <= 0) {
+      this.advanceTurnAfterReaction(current.playerId);
+      return;
+    }
+    const tile = candidates[Math.floor(Math.random() * candidates.length)];
+    this.discard(current.playerId, tile.id);
+  }
+
+  private createWall(): Tile[] {
+    const texts: string[] = [];
+    for (let i = 0; i < 2; i++) texts.push(...SEION_TILES);
+    texts.push(...DAKUON_TILES, ...HANDAKUON_TILES, ...YOON_TILES, ...CHOON_TILES);
+    this.shuffle(texts);
+    return texts.map((text) => ({ id: `t_${this.nextTileNo++}`, text, kind: "tile" }));
+  }
+
+  private shuffle<T>(items: T[]): void {
+    for (let i = items.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [items[i], items[j]] = [items[j], items[i]];
+    }
+  }
+
+  private sortHand(hand: Tile[]): void {
+    hand.sort((a, b) => (TILE_ORDER.get(a.text) ?? 999) - (TILE_ORDER.get(b.text) ?? 999));
+  }
+
+  private makeMeld(tiles: string[]): Meld {
+    return { id: `m_${this.nextMeldNo++}`, tiles: [...tiles] };
+  }
+
+  private backToLobby(): void {
+    this.clearCpuTimer();
+    this.clearReactionTimer();
+    this.phase = "lobby";
+    this.currentPlayerId = null;
+    this.lastDiscardTile = "";
+    this.lastDiscarderId = null;
+    this.claimableDiscard = false;
+    this.claimWindow = null;
+    this.ronJudgeQueue = null;
+    this.wall = [];
+    this.matchWinnerId = null;
+    this.roundMessage = "";
+    this.judge = null;
+    this.pendingPon = null;
+    for (const player of this.players.values()) {
+      player.score = 0;
+      player.isOut = false;
+      player.hand = [];
+      player.discards = [];
+      player.melds = [];
+    }
+  }
+
+  private addOrReconnectPlayer(playerId: string, name: string): void {
+    const existing = this.players.get(playerId);
+    if (existing) {
+      existing.connected = true;
+      existing.name = cleanName(name);
+      return;
+    }
+    if (this.players.size >= MAX_PLAYERS) throw new Error("この部屋は満員です。");
+    const seatIndex = this.nextSeatIndex();
+    const isHost = this.hostPlayerId === null;
+    this.players.set(playerId, {
+      playerId,
+      name: cleanName(name),
+      seatIndex,
+      isHost,
+      isCpu: false,
+      connected: true,
+      score: 0,
+      isOut: false,
+      hand: [],
+      discards: [],
+      melds: [],
+    });
+    if (isHost) this.hostPlayerId = playerId;
+    this.rebuildHostFlag();
+  }
+
+  private nextSeatIndex(): number {
+    const used = new Set([...this.players.values()].map((p) => p.seatIndex));
+    for (let i = 0; i < MAX_PLAYERS; i++) if (!used.has(i)) return i;
+    return this.players.size;
+  }
+
+  private requirePlayer(playerId: string): PlayerState {
+    const player = this.players.get(playerId);
+    if (!player) throw new Error("プレイヤーが見つかりません。");
+    return player;
+  }
+
+  private requireHost(playerId: string): void {
+    const player = this.requirePlayer(playerId);
+    if (!player.isHost) throw new Error("ホストのみ操作できます。");
+  }
+
+  private markDisconnected(ws: WebSocket): void {
+    const attachment = ws.deserializeAttachment() as SocketAttachment | undefined;
+    if (!attachment?.playerId) return;
+    const player = this.players.get(attachment.playerId);
+    if (!player) return;
+    player.connected = false;
+    this.rebuildHostFlag();
+  }
+
+  private rebuildHostFlag(): void {
+    const players = this.playersBySeat();
+    if (this.hostPlayerId && this.players.has(this.hostPlayerId)) {
+      for (const player of players) player.isHost = player.playerId === this.hostPlayerId;
+      return;
+    }
+    const nextHost = players.find((p) => !p.isCpu) ?? players[0] ?? null;
+    this.hostPlayerId = nextHost?.playerId ?? null;
+    for (const player of players) player.isHost = player.playerId === this.hostPlayerId;
+  }
+
+  private playersBySeat(): PlayerState[] {
+    return [...this.players.values()].sort((a, b) => a.seatIndex - b.seatIndex);
+  }
+
+  private nextActivePlayerAfter(playerId: string): PlayerState | null {
+    const players = this.playersBySeat().filter((p) => !p.isOut);
+    if (players.length <= 0) return null;
+    const currentIndex = players.findIndex((p) => p.playerId === playerId);
+    const nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % players.length;
+    return players[nextIndex] ?? null;
+  }
+
+  private publicPlayer(player: PlayerState): PublicPlayerState {
+    const separatorCount = player.hand.filter((tile) => tile.kind === "separator").length;
+    return {
+      playerId: player.playerId,
+      name: player.name,
+      seatIndex: player.seatIndex,
+      isHost: player.isHost,
+      isCpu: player.isCpu,
+      connected: player.connected,
+      score: player.score,
+      isOut: player.isOut,
+      handCount: player.hand.length - separatorCount,
+      separatorCount,
+      discards: [...player.discards],
+      melds: player.melds.map((meld) => ({ id: meld.id, tiles: [...meld.tiles] })),
+    };
+  }
+
+  private publicJudge(): PublicJudgeState | null {
+    if (!this.judge) return null;
+    const claimant = this.players.get(this.judge.claimantId);
+    return {
+      claimantId: this.judge.claimantId,
+      claimType: this.judge.claimType,
+      revealedHand: this.judge.revealedHand.map((item) => ({ ...item })),
+      revealedMelds: claimant ? claimant.melds.map((meld) => ({ id: meld.id, tiles: [...meld.tiles] })) : [],
+      claimedDiscardTile: this.judge.claimedDiscardTile,
+      fromDiscarderId: this.judge.fromDiscarderId,
+      votes: { ...this.judge.votes },
+      requiredVoterIds: this.requiredVoterIds(),
+      ronQueueIndex: this.ronJudgeQueue ? this.ronJudgeQueue.currentIndex + 1 : null,
+      ronQueueTotal: this.ronJudgeQueue ? this.ronJudgeQueue.claimantIds.length : null,
+    };
+  }
+
+  private publicClaimWindow(): PublicClaimWindowState | null {
+    if (!this.claimWindow) return null;
+    return {
+      discarderId: this.claimWindow.discarderId,
+      discardText: this.claimWindow.discardText,
+      startedAt: this.claimWindow.startedAt,
+      endsAt: this.claimWindow.endsAt,
+      ronClaimantIds: [...this.claimWindow.ronClaimantIds],
+      ponClaimantIds: [...this.claimWindow.ponClaimantIds],
+    };
+  }
+
+  private getPublicStateFor(playerId: string): PublicRoomState {
+    const player = this.players.get(playerId);
+    return {
+      roomId: this.roomId,
+      phase: this.phase,
+      targetScore: this.targetScore,
+      reactionSeconds: this.reactionSeconds,
+      hostPlayerId: this.hostPlayerId,
+      currentPlayerId: this.currentPlayerId,
+      lastDiscardTile: this.lastDiscardTile,
+      lastDiscarderId: this.lastDiscarderId,
+      claimableDiscard: this.claimableDiscard,
+      claimWindow: this.publicClaimWindow(),
+      wallCount: this.wall.length,
+      matchWinnerId: this.matchWinnerId,
+      roundMessage: this.roundMessage,
+      myPlayerId: playerId,
+      myHand: player ? player.hand.map((tile) => ({ ...tile })) : [],
+      pendingPon: this.pendingPon ? { ...this.pendingPon } : null,
+      judge: this.publicJudge(),
+      players: this.playersBySeat().map((p) => this.publicPlayer(p)),
+    };
+  }
+
+  private broadcastState(): void {
+    for (const ws of this.ctx.getWebSockets()) {
+      const attachment = ws.deserializeAttachment() as SocketAttachment | undefined;
+      const playerId = attachment?.playerId;
+      if (!playerId) continue;
+      this.send(ws, { t: "state", state: this.getPublicStateFor(playerId) });
+    }
+  }
+
+  private send(ws: WebSocket, message: ServerMessage): void {
+    ws.send(JSON.stringify(message));
+  }
+
+  private sendError(ws: WebSocket, message: string): void {
+    this.send(ws, { t: "error", message });
+  }
+}
+
+function cleanName(name: string): string {
+  const trimmed = String(name ?? "").trim();
+  return trimmed ? trimmed.slice(0, 12) : "名無し";
+}

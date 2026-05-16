@@ -13,11 +13,13 @@
     h1{margin:0 0 20px;text-align:center;font-size:clamp(36px,6vw,64px);letter-spacing:.08em}.version{display:block;margin-top:4px;font-size:14px;letter-spacing:.05em;color:#465163}h2{margin:0 0 14px;font-size:28px}
     label{display:grid;gap:8px;font-size:18px;font-weight:900;margin:12px 0}.toggleLabel{display:flex;align-items:center;gap:10px;margin:0;font-size:17px;font-weight:1000}.toggleLabel input{width:24px;height:24px;padding:0;margin:0;accent-color:#ffcf40}
     input,select{padding:14px 16px;border:2px solid #9aa3b2;border-radius:14px;font-size:22px;font-weight:900;background:#fff;color:#171a20}
-    button{border:0;border-radius:14px;padding:14px 18px;font-size:18px;font-weight:900;background:#f4f7fb;color:#171a20;cursor:pointer;box-shadow:0 4px 0 #9aa3b2}button:disabled{opacity:.4;cursor:not-allowed}button:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #9aa3b2}
+    button{border:0;border-radius:14px;padding:14px 18px;font-size:18px;font-weight:900;background:#f4f7fb;color:#171a20;cursor:pointer;box-shadow:0 4px 0 #9aa3b2;touch-action:manipulation}button:disabled{opacity:.4;cursor:not-allowed}button:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 #9aa3b2}
     .good{background:#68e18c}.blue{background:#78b7ff}.danger{background:#ff7676}.yellow{background:#ffcf40}.buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px}
     .box{background:rgba(255,255,255,.72);border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:16px}.row{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}.inlineInput{width:110px;text-align:center}.status{margin-top:14px;padding:10px 12px;border-radius:12px;background:#303746;color:#fff;font-weight:800;line-height:1.45;word-break:break-all}.participants{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}.participant{background:#303746;color:#fff;border-radius:14px;padding:12px;display:flex;justify-content:space-between;gap:10px;font-weight:900}
 
-    .gameRoot{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto auto auto;gap:12px}.topbar,.actions,.judgePanel,.resultPanel{background:#2d333d;border:1px solid #4a5361;border-radius:16px;padding:12px;box-shadow:0 8px 20px rgba(0,0,0,.22)}.topbar{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center}.mainStatus{font-size:20px;font-weight:900;line-height:1.4}.myDiscardTop{display:none;background:#eef1f5;color:#171a20;border:2px solid #ffcf40;border-radius:12px;padding:8px}.myDiscardTopTitle{font-size:12px;font-weight:1000;color:#465163;margin-bottom:5px}.smallInfo{color:#d6d9df;font-weight:800;white-space:nowrap}
+    .connectionOverlay{position:fixed;inset:0;z-index:9500;display:none;place-items:center;background:rgba(0,0,0,.48);padding:18px}.connectionOverlay.show{display:grid}.connectionCard{width:min(420px,100%);background:#eef1f5;color:#171a20;border:3px solid #ffcf40;border-radius:20px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,.45);text-align:center}.connectionTitle{font-size:22px;font-weight:1000;margin-bottom:8px}.connectionText{font-size:14px;font-weight:800;line-height:1.45;color:#465163;margin-bottom:14px}.connectionButtons{display:grid;grid-template-columns:1fr 1fr;gap:10px}.topMiniBtn{padding:8px 10px;font-size:13px;border-radius:10px;box-shadow:0 2px 0 #9aa3b2;white-space:nowrap}
+
+    .gameRoot{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto auto auto;gap:12px}.topbar,.actions,.judgePanel,.resultPanel{background:#2d333d;border:1px solid #4a5361;border-radius:16px;padding:12px;box-shadow:0 8px 20px rgba(0,0,0,.22)}.topbar{display:grid;grid-template-columns:1fr auto auto auto;gap:12px;align-items:center}.mainStatus{font-size:20px;font-weight:900;line-height:1.4}.myDiscardTop{display:none;background:#eef1f5;color:#171a20;border:2px solid #ffcf40;border-radius:12px;padding:8px}.myDiscardTopTitle{font-size:12px;font-weight:1000;color:#465163;margin-bottom:5px}.smallInfo{color:#d6d9df;font-weight:800;white-space:nowrap}
     .players{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.player{background:#eef1f5;color:#171a20;border-radius:16px;padding:12px;border:3px solid transparent;display:grid;grid-template-rows:auto 1fr;gap:10px;min-height:220px}.player.turn{border-color:#ffcf40;box-shadow:0 0 0 2px rgba(255,207,64,.3),0 0 28px rgba(255,207,64,.35)}.player.me{border-color:#78b7ff}.player.winner{border-color:#68e18c;box-shadow:0 0 0 2px rgba(104,225,140,.3),0 0 28px rgba(104,225,140,.35)}.playerHeader{display:flex;justify-content:space-between;gap:8px;font-weight:1000}.badge{background:#303746;color:#fff;border-radius:999px;padding:3px 8px;font-size:12px;white-space:nowrap}.section{background:rgba(0,0,0,.06);border-radius:12px;padding:10px;border:1px solid rgba(0,0,0,.08);min-height:74px}.sectionTitle{font-size:13px;font-weight:900;letter-spacing:.04em;color:#465163;margin-bottom:7px}
     .tileRow{display:flex;flex-wrap:wrap;gap:7px;align-content:flex-start;align-items:center}.tile{width:42px;height:50px;border-radius:8px;border:1px solid #9ca3af;background:linear-gradient(#fff,#e9edf3);color:#111827;display:grid;place-items:center;font-size:24px;font-weight:900;box-shadow:0 3px 0 #b9c0cb;cursor:pointer;touch-action:manipulation}.tile.small{width:38px;height:46px;font-size:22px;cursor:default;box-shadow:0 2px 0 #b9c0cb}.tile.mini{width:30px;height:38px;font-size:18px;cursor:default;box-shadow:0 2px 0 #b9c0cb}.tile.myTile{width:50px;height:62px;border-radius:10px;font-size:30px;box-shadow:0 4px 0 #b9c0cb}.tile.wordTile{width:auto;min-width:42px;padding:0 6px;font-size:22px;letter-spacing:.02em}.tile.myTile.wordTile{min-width:52px;font-size:24px}.tile.small.wordTile{min-width:38px;font-size:16px}.tile.separator{width:24px;background:transparent;border:0;border-bottom:7px solid #ffcf40;border-radius:0;box-shadow:none;color:transparent}.tile.separator.myTile{width:32px;height:62px;border-bottom-width:8px}.tile.separator.small{width:22px;height:46px;border-bottom-width:5px}.tile.smallKana{position:relative}.tile.smallKana::before{content:"小";position:absolute;top:2px;left:3px;font-size:10px;font-weight:1000;line-height:1;color:#111827;background:rgba(255,207,64,.95);border:1px solid rgba(17,24,39,.35);border-radius:4px;padding:1px 3px;pointer-events:none;z-index:2}.tile.myTile.smallKana::before{top:3px;left:4px;font-size:10px;padding:1px 2px}.tile.small.smallKana::before{top:1px;left:2px;font-size:8px;padding:1px 2px}.tile.selected{outline:4px solid #ffcf40;transform:translateY(-4px)}.tile.separator.selected{outline:3px solid #78b7ff;outline-offset:4px;transform:translateY(-4px)}.tile.dragging{opacity:.35}.tile.dragOver{outline:4px solid #78b7ff}.tile.claimTarget{background:linear-gradient(#ffb2b2,#ff5f5f);border-color:#a40000;color:#240000;box-shadow:0 3px 0 #8f0000,0 0 16px rgba(255,80,80,.85)}
     .myHandPanel{background:#eef1f5;color:#171a20;border:3px solid #ffcf40;border-radius:18px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.28),0 0 28px rgba(255,207,64,.25)}.myHandHeader{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px;font-size:18px;font-weight:1000}.myHand{display:grid;grid-template-columns:repeat(10,max-content);grid-auto-rows:max-content;gap:8px;align-content:flex-start;min-height:88px;max-height:220px;overflow:auto;background:rgba(255,255,255,.72);border-radius:14px;padding:12px;outline:2px dashed rgba(255,207,64,.8);outline-offset:3px}.handControls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}.handControls button{font-size:15px;padding:10px 8px;border-radius:10px}
@@ -25,10 +27,20 @@
     .cutInOverlay{position:fixed;inset:0;display:none;place-items:center;z-index:9999;pointer-events:none;background:rgba(0,0,0,.12)}.cutInOverlay.show{display:grid}.cutInText{min-width:min(720px,86vw);text-align:center;font-size:clamp(72px,15vw,180px);font-weight:1000;letter-spacing:.12em;color:#fff;text-shadow:0 8px 0 #111827,0 0 24px rgba(255,207,64,.95),0 0 54px rgba(255,80,80,.75);animation:cutInPop 2s ease-out forwards;transform:rotate(-7deg) scale(.72)}.cutInText.igi{color:#ffef5a;text-shadow:0 8px 0 #7f0000,0 0 24px rgba(255,90,90,.95),0 0 54px rgba(255,0,0,.8)}@keyframes cutInPop{0%{opacity:0;transform:rotate(-10deg) scale(.45);filter:blur(6px)}12%{opacity:1;transform:rotate(-7deg) scale(1.18);filter:blur(0)}24%{transform:rotate(-7deg) scale(1)}78%{opacity:1;transform:rotate(-7deg) scale(1)}100%{opacity:0;transform:rotate(-7deg) scale(1.08)}}
     @media(max-width:1100px){.players{grid-template-columns:repeat(2,minmax(0,1fr))}.topbar{grid-template-columns:1fr}.smallInfo{white-space:normal}}
     @media(max-width:640px){.buttons{grid-template-columns:1fr}.participants{grid-template-columns:1fr}.players{grid-template-columns:1fr}.voteRow{grid-template-columns:1fr}}
-    body.mobilePortraitUI{position:fixed;inset:0;width:100%;height:100svh;max-width:100%;overflow:hidden;padding-top:max(8px,env(safe-area-inset-top));padding-left:0;padding-right:0}body.mobilePortraitUI .screen{width:100%;max-width:100%;height:calc(100svh - max(8px,env(safe-area-inset-top)));min-height:0;padding:6px;overflow:hidden}body.mobilePortraitUI .centerScreen{overflow:auto}body.mobilePortraitUI .card{width:100%;padding:14px;border-radius:18px}body.mobilePortraitUI h1{font-size:34px;margin-bottom:12px}body.mobilePortraitUI h2{font-size:22px;margin-bottom:10px}body.mobilePortraitUI label{font-size:14px;margin:8px 0}body.mobilePortraitUI input,body.mobilePortraitUI select{font-size:17px;padding:10px 12px;border-radius:10px}body.mobilePortraitUI button{font-size:14px;padding:10px 12px;border-radius:10px;box-shadow:0 2px 0 #9aa3b2}body.mobilePortraitUI .buttons{gap:8px;margin-top:10px}body.mobilePortraitUI .box{padding:10px;border-radius:12px}body.mobilePortraitUI .status{font-size:12px;margin-top:8px;padding:8px}body.mobilePortraitUI .participants{grid-template-columns:1fr;gap:6px}body.mobilePortraitUI .participant{padding:8px;font-size:13px}body.mobilePortraitUI .gameRoot{width:100%;max-width:100%;min-width:0;height:calc(100svh - max(20px,env(safe-area-inset-top)) - 12px);min-height:0;grid-template-rows:auto minmax(0,1fr) auto auto auto;gap:6px;overflow:hidden}body.mobilePortraitUI .topbar{grid-template-columns:minmax(0,1fr) auto;gap:6px;padding:7px;border-radius:11px;margin-top:4px;min-width:0;width:100%;max-width:100%;overflow:hidden}body.mobilePortraitUI .mainStatus{display:none}body.mobilePortraitUI .myDiscardTop{display:block;grid-column:1/-1;min-width:0;overflow:hidden}body.mobilePortraitUI .myDiscardTop .tileRow{max-height:58px;overflow:hidden}body.mobilePortraitUI .myDiscardTopTitle{font-size:11px}body.mobilePortraitUI .tileRow{min-width:0}body.mobilePortraitUI .smallInfo{font-size:11px;white-space:normal}body.mobilePortraitUI .players{grid-template-columns:minmax(0,1fr)!important;gap:6px;min-height:0;overflow:hidden;padding-right:0;width:100%;max-width:100%;min-width:0}body.mobilePortraitUI .player{min-height:0;padding:7px;border-radius:11px;gap:5px;grid-template-rows:auto auto}body.mobilePortraitUI .player.me{display:none}body.mobilePortraitUI .playerHeader{font-size:12px;line-height:1.18;align-items:flex-start}body.mobilePortraitUI .playerHeader .handInfo{display:none}body.mobilePortraitUI .badge{font-size:10px;padding:2px 5px;white-space:normal}body.mobilePortraitUI .section{min-height:0;padding:6px;border-radius:9px}body.mobilePortraitUI .sectionTitle{display:none}body.mobilePortraitUI .tileRow{gap:3px;max-width:100%;min-width:0;overflow:hidden}body.mobilePortraitUI .tile{width:26px;height:32px;font-size:16px;border-radius:6px;box-shadow:0 2px 0 #b9c0cb}body.mobilePortraitUI .tile.small{width:24px;height:30px;font-size:15px}body.mobilePortraitUI .tile.myTile{width:100%;height:36px;font-size:20px;border-radius:6px;min-width:0}body.mobilePortraitUI .tile.wordTile{min-width:30px;font-size:15px;padding:0 4px}body.mobilePortraitUI .tile.myTile.wordTile{min-width:34px;font-size:18px}body.mobilePortraitUI .tile.separator.myTile{width:100%;height:36px;border-bottom-width:5px}body.mobilePortraitUI .tile.separator.small{width:16px;height:32px;border-bottom-width:5px}body.mobilePortraitUI .tile.myTile.smallKana::before{top:1px;left:2px;font-size:7px;padding:1px 2px}body.mobilePortraitUI .myHandPanel{padding:7px;border-radius:12px}body.mobilePortraitUI .myHandHeader{font-size:13px;margin-bottom:5px}body.mobilePortraitUI .myHand{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(2,36px);max-height:85px;min-height:85px;overflow:hidden;padding:6px;gap:3px;outline-offset:1px;width:100%;max-width:100%;min-width:0}body.mobilePortraitUI .handControls{grid-template-columns:repeat(4,1fr);gap:5px;margin-top:6px}body.mobilePortraitUI .handControls button{font-size:12px;padding:8px 4px}body.mobilePortraitUI .actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:6px;border-radius:12px;width:100%;max-width:100%;min-width:0;overflow:hidden}body.mobilePortraitUI .actions button{font-size:12px;padding:8px 4px;border-radius:9px;min-height:36px;min-width:0}body.mobilePortraitUI .judgePanel.show{max-height:calc(100svh - 140px);overflow:auto;padding:7px;border-radius:12px}body.mobilePortraitUI .judgeTitle{font-size:15px}body.mobilePortraitUI .judgeHelp{font-size:12px;line-height:1.35}body.mobilePortraitUI .judgeHand{padding:6px;gap:4px}body.mobilePortraitUI .voteRow{grid-template-columns:1fr;gap:5px;font-size:12px}body.mobilePortraitUI .voteActions{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}body.mobilePortraitUI .voteActions button{font-size:12px;padding:8px 4px}body.mobilePortraitUI .resultPanel.show{max-height:calc(100svh - 80px);overflow:auto;padding:10px}body.mobilePortraitUI .winnerTitle{font-size:24px}body.mobilePortraitUI .winnerSub{font-size:14px}
+    body.mobilePortraitUI{position:fixed;inset:0;width:100%;height:100svh;max-width:100%;overflow:hidden;padding-top:max(8px,env(safe-area-inset-top));padding-left:0;padding-right:0}body.mobilePortraitUI .screen{width:100%;max-width:100%;height:calc(100svh - max(8px,env(safe-area-inset-top)));min-height:0;padding:6px;overflow:hidden}body.mobilePortraitUI .centerScreen{overflow:hidden}body.mobilePortraitUI .card{width:100%;max-width:100%;padding:14px;border-radius:18px;overflow:hidden}body.mobilePortraitUI h1{font-size:34px;margin-bottom:12px}body.mobilePortraitUI h2{font-size:22px;margin-bottom:10px}body.mobilePortraitUI label{font-size:14px;margin:8px 0}body.mobilePortraitUI input,body.mobilePortraitUI select{font-size:17px;padding:10px 12px;border-radius:10px}body.mobilePortraitUI button{font-size:14px;padding:10px 12px;border-radius:10px;box-shadow:0 2px 0 #9aa3b2}body.mobilePortraitUI .buttons{gap:8px;margin-top:10px}body.mobilePortraitUI .box{padding:10px;border-radius:12px}body.mobilePortraitUI .status{font-size:12px;margin-top:8px;padding:8px}body.mobilePortraitUI .participants{grid-template-columns:1fr;gap:6px}body.mobilePortraitUI .participant{padding:8px;font-size:13px}body.mobilePortraitUI .gameRoot{width:100%;max-width:100%;min-width:0;height:calc(100svh - max(20px,env(safe-area-inset-top)) - 12px);min-height:0;grid-template-rows:auto minmax(0,1fr) auto auto auto;gap:6px;overflow:hidden}body.mobilePortraitUI .topbar{grid-template-columns:minmax(0,1fr) auto auto auto;gap:5px;padding:7px;border-radius:11px;margin-top:4px;min-width:0;width:100%;max-width:100%;overflow:hidden}body.mobilePortraitUI .mainStatus{display:none}body.mobilePortraitUI .myDiscardTop{display:block;grid-column:1/-1;min-width:0;overflow:hidden}body.mobilePortraitUI .myDiscardTop .tileRow{max-height:58px;overflow:hidden}body.mobilePortraitUI .myDiscardTopTitle{font-size:11px}body.mobilePortraitUI .tileRow{gap:3px;max-width:100%;min-width:0;overflow:hidden}body.mobilePortraitUI .smallInfo{font-size:10px;white-space:normal}body.mobilePortraitUI .topMiniBtn{font-size:10px;padding:6px 7px;min-width:0}body.mobilePortraitUI .players{grid-template-columns:minmax(0,1fr)!important;gap:6px;min-height:0;overflow:hidden;padding-right:0;width:100%;max-width:100%;min-width:0}body.mobilePortraitUI .player{min-height:0;padding:7px;border-radius:11px;gap:5px;grid-template-rows:auto auto}body.mobilePortraitUI .player.me{display:none}body.mobilePortraitUI .playerHeader{font-size:12px;line-height:1.18;align-items:flex-start}body.mobilePortraitUI .playerHeader .handInfo{display:none}body.mobilePortraitUI .badge{font-size:10px;padding:2px 5px;white-space:normal}body.mobilePortraitUI .section{min-height:0;padding:6px;border-radius:9px}body.mobilePortraitUI .sectionTitle{display:none}body.mobilePortraitUI .tile{width:26px;height:32px;font-size:16px;border-radius:6px;box-shadow:0 2px 0 #b9c0cb}body.mobilePortraitUI .tile.small{width:24px;height:30px;font-size:15px}body.mobilePortraitUI .tile.myTile{width:100%;height:36px;font-size:20px;border-radius:6px;min-width:0}body.mobilePortraitUI .tile.wordTile{min-width:30px;font-size:15px;padding:0 4px}body.mobilePortraitUI .tile.myTile.wordTile{min-width:0;font-size:18px}body.mobilePortraitUI .tile.separator.myTile{width:100%;height:36px;border-bottom-width:5px}body.mobilePortraitUI .tile.separator.small{width:16px;height:32px;border-bottom-width:5px}body.mobilePortraitUI .tile.myTile.smallKana::before{top:1px;left:2px;font-size:7px;padding:1px 2px}body.mobilePortraitUI .myHandPanel{padding:7px;border-radius:12px;width:100%;max-width:100%;min-width:0;overflow:hidden}body.mobilePortraitUI .myHandHeader{font-size:13px;margin-bottom:5px}body.mobilePortraitUI .myHand{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(2,36px);max-height:85px;min-height:85px;overflow:hidden;padding:6px;gap:3px;outline-offset:1px;width:100%;max-width:100%;min-width:0}body.mobilePortraitUI .handControls{grid-template-columns:repeat(4,1fr);gap:5px;margin-top:6px}body.mobilePortraitUI .handControls button{font-size:12px;padding:8px 4px}body.mobilePortraitUI .actions{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:6px;border-radius:12px;width:100%;max-width:100%;min-width:0;overflow:hidden}body.mobilePortraitUI .actions button{font-size:12px;padding:8px 4px;border-radius:9px;min-height:36px;min-width:0}body.mobilePortraitUI .judgePanel.show{max-height:calc(100svh - 140px);overflow:hidden;padding:7px;border-radius:12px}body.mobilePortraitUI .judgeTitle{font-size:15px}body.mobilePortraitUI .judgeHelp{font-size:12px;line-height:1.35}body.mobilePortraitUI .judgeHand{padding:6px;gap:4px;max-height:90px;overflow:hidden}body.mobilePortraitUI .voteRow{grid-template-columns:1fr;gap:5px;font-size:12px}body.mobilePortraitUI .voteActions{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}body.mobilePortraitUI .voteActions button{font-size:12px;padding:8px 4px}body.mobilePortraitUI .resultPanel.show{max-height:calc(100svh - 80px);overflow:hidden;padding:10px}body.mobilePortraitUI .winnerTitle{font-size:24px}body.mobilePortraitUI .winnerSub{font-size:14px}body.mobilePortraitUI .connectionOverlay{padding:12px}body.mobilePortraitUI .connectionCard{border-radius:16px;padding:14px}.connectionButtons button{font-size:13px;padding:10px 8px}
   </style>
 </head>
 <body>
+  <div id="connectionOverlay" class="connectionOverlay">
+    <div class="connectionCard">
+      <div id="connectionTitle" class="connectionTitle">接続が切れました</div>
+      <div id="connectionText" class="connectionText">同じ部屋・同じ席へ再接続できます。</div>
+      <div class="connectionButtons">
+        <button id="reconnectBtn" class="good">再接続</button>
+        <button id="connectionTitleBtn">タイトル</button>
+      </div>
+    </div>
+  </div>
   <div id="cutInOverlay" class="cutInOverlay"><div id="cutInText" class="cutInText"></div></div>
 
   <section id="titleScreen" class="screen centerScreen">
@@ -59,7 +71,7 @@
 
   <section id="gameScreen" class="screen hidden">
     <div class="gameRoot">
-      <div class="topbar"><div id="gameStatus" class="mainStatus">対局中</div><div id="myDiscardTop" class="myDiscardTop"><div class="myDiscardTopTitle">自分の捨て牌</div><div id="myDiscardTopTiles" class="tileRow"></div></div><div id="wallInfo" class="smallInfo">山: -</div><div id="lastDiscardInfo" class="smallInfo">直前: -</div></div>
+      <div class="topbar"><div id="gameStatus" class="mainStatus">対局中</div><div id="myDiscardTop" class="myDiscardTop"><div class="myDiscardTopTitle">自分の捨て牌</div><div id="myDiscardTopTiles" class="tileRow"></div></div><div id="wallInfo" class="smallInfo">山: -</div><div id="lastDiscardInfo" class="smallInfo">直前: -</div><button id="syncBtn" class="topMiniBtn blue">同期</button></div>
       <div id="players" class="players"></div>
       <div class="actions">
         <button id="discardBtn" class="blue">出す</button>
@@ -88,27 +100,30 @@
     const WS_BASE_LOCAL = "ws://127.0.0.1:8787/ws/";
     const WS_BASE_PROD = "wss://hiragajan-ws.naitoryo7110.workers.dev/ws/";
     const MOBILE_UI_STORAGE_KEY = "hiragajan_mobile_portrait_ui";
+    const CLIENT_KEY_STORAGE_KEY = "hiragajan_client_key_v1";
     const APP_VERSION = "v1.01";
     const el = {
+      connectionOverlay: document.getElementById("connectionOverlay"), connectionTitle: document.getElementById("connectionTitle"), connectionText: document.getElementById("connectionText"), reconnectBtn: document.getElementById("reconnectBtn"), connectionTitleBtn: document.getElementById("connectionTitleBtn"),
       cutInOverlay: document.getElementById("cutInOverlay"), cutInText: document.getElementById("cutInText"),
       titleScreen: document.getElementById("titleScreen"), lobbyScreen: document.getElementById("lobbyScreen"), gameScreen: document.getElementById("gameScreen"),
       mobileUiToggle: document.getElementById("mobileUiToggle"), mobileUiToggleLobby: document.getElementById("mobileUiToggleLobby"),
       nameInput: document.getElementById("nameInput"), roomInput: document.getElementById("roomInput"), hostBtn: document.getElementById("hostBtn"), joinBtn: document.getElementById("joinBtn"), titleStatus: document.getElementById("titleStatus"),
       roomLabel: document.getElementById("roomLabel"), connectionLabel: document.getElementById("connectionLabel"), countLabel: document.getElementById("countLabel"), participants: document.getElementById("participants"), gameModeInput: document.getElementById("gameModeInput"), winningTileCountInput: document.getElementById("winningTileCountInput"), targetScoreInput: document.getElementById("targetScoreInput"), reactionSecondsInput: document.getElementById("reactionSecondsInput"),
       addCpuBtn: document.getElementById("addCpuBtn"), startGameBtn: document.getElementById("startGameBtn"), backTitleBtn: document.getElementById("backTitleBtn"), disconnectBtn: document.getElementById("disconnectBtn"), lobbyStatus: document.getElementById("lobbyStatus"),
-      gameStatus: document.getElementById("gameStatus"), myDiscardTop: document.getElementById("myDiscardTop"), myDiscardTopTiles: document.getElementById("myDiscardTopTiles"), wallInfo: document.getElementById("wallInfo"), lastDiscardInfo: document.getElementById("lastDiscardInfo"), players: document.getElementById("players"),
+      gameStatus: document.getElementById("gameStatus"), myDiscardTop: document.getElementById("myDiscardTop"), myDiscardTopTiles: document.getElementById("myDiscardTopTiles"), wallInfo: document.getElementById("wallInfo"), lastDiscardInfo: document.getElementById("lastDiscardInfo"), syncBtn: document.getElementById("syncBtn"), players: document.getElementById("players"),
       discardBtn: document.getElementById("discardBtn"), ronBtn: document.getElementById("ronBtn"), tsumoBtn: document.getElementById("tsumoBtn"), nextRoundBtn: document.getElementById("nextRoundBtn"), titleFromGameBtn: document.getElementById("titleFromGameBtn"), disconnectFromGameBtn: document.getElementById("disconnectFromGameBtn"),
       separatorAddBtn: document.getElementById("separatorAddBtn"), separatorRemoveBtn: document.getElementById("separatorRemoveBtn"), moveLeftBtn: document.getElementById("moveLeftBtn"), moveRightBtn: document.getElementById("moveRightBtn"),
       myHandTitle: document.getElementById("myHandTitle"), myTurnLabel: document.getElementById("myTurnLabel"), myHand: document.getElementById("myHand"),
       judgePanel: document.getElementById("judgePanel"), judgeTitle: document.getElementById("judgeTitle"), judgeHand: document.getElementById("judgeHand"), voteRows: document.getElementById("voteRows"),
       resultPanel: document.getElementById("resultPanel"), winnerTitle: document.getElementById("winnerTitle"), winnerSub: document.getElementById("winnerSub"), rematchBtn: document.getElementById("rematchBtn"), backLobbyResultBtn: document.getElementById("backLobbyResultBtn")
     };
-    const state = { ws: null, playerId: null, roomId: "testroom", serverState: null, connected: false, selectedTileId: null, lastCutInKey: "", cutInTimer: null, handDrag: null };
+    const state = { ws: null, playerId: null, roomId: "testroom", serverState: null, connected: false, selectedTileId: null, lastCutInKey: "", cutInTimer: null, handDrag: null, reconnectTimer: null, reconnectAttempt: 0, suppressNextClose: false, intentionalClose: false };
 
     function normalizeName(value) { const text = String(value || "").trim(); return text ? text.slice(0, 12) : "あなた"; }
     function normalizeRoom(value) { const text = String(value || "").trim().replace(/[^a-zA-Z0-9_-]/g, ""); return text ? text.slice(0, 32) : "testroom"; }
     function setScreen(screen) { el.titleScreen.classList.toggle("hidden", screen !== "title"); el.lobbyScreen.classList.toggle("hidden", screen !== "lobby"); el.gameScreen.classList.toggle("hidden", screen !== "game"); }
     function getWsBase() { const isLocalFile = location.protocol === "file:"; const isLocalHost = location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === ""; return (isLocalFile || isLocalHost) ? WS_BASE_LOCAL : WS_BASE_PROD; }
+    function ensureClientKey() { let key = localStorage.getItem(CLIENT_KEY_STORAGE_KEY); if (!key) { key = (crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}_${Math.random().toString(36).slice(2)}`); localStorage.setItem(CLIENT_KEY_STORAGE_KEY, key); } return key; }
     function applyUrlParams() { const params = new URLSearchParams(location.search); const room = params.get("room"); const name = params.get("name"); const mobile = params.get("mobile") || params.get("mobileUi"); if (room) el.roomInput.value = normalizeRoom(room); if (name) el.nameInput.value = normalizeName(name); if (mobile) setMobilePortraitUi(["1", "true", "on", "yes"].includes(mobile.toLowerCase())); }
     function setMobilePortraitUi(enabled) { document.body.classList.toggle("mobilePortraitUI", Boolean(enabled)); localStorage.setItem(MOBILE_UI_STORAGE_KEY, enabled ? "1" : "0"); el.mobileUiToggle.checked = Boolean(enabled); el.mobileUiToggleLobby.checked = Boolean(enabled); }
     function loadMobilePortraitUi() { setMobilePortraitUi(localStorage.getItem(MOBILE_UI_STORAGE_KEY) === "1"); }
@@ -121,47 +136,109 @@
     function claimWindowActive() { return Boolean(state.serverState?.claimWindow); }
     function declaredRon() { const s = state.serverState; return Boolean(s?.claimWindow?.ronClaimantIds?.includes(state.playerId)); }
 
-    function connectAs() {
-      disconnect(false);
-      state.roomId = normalizeRoom(el.roomInput.value);
+    function showConnectionOverlay(title, text) { el.connectionTitle.textContent = title; el.connectionText.textContent = text; el.connectionOverlay.classList.add("show"); }
+    function hideConnectionOverlay() { el.connectionOverlay.classList.remove("show"); }
+    function clearReconnectTimer() { if (state.reconnectTimer) clearTimeout(state.reconnectTimer); state.reconnectTimer = null; }
+    function closeSocketSilently() { if (state.ws) { try { state.suppressNextClose = true; state.ws.close(); } catch {} } state.ws = null; }
+
+    function connectAs() { startConnection({ preserveState: false, fromTitle: true }); }
+    function reconnectNow() { startConnection({ preserveState: true, fromTitle: false }); }
+    function startConnection(options = {}) {
+      const preserveState = Boolean(options.preserveState);
+      const fromTitle = Boolean(options.fromTitle);
+      clearReconnectTimer();
+      closeSocketSilently();
+      state.intentionalClose = false;
+      state.connected = false;
+      if (!preserveState) { state.serverState = null; state.playerId = null; state.selectedTileId = null; state.lastCutInKey = ""; }
+
+      state.roomId = normalizeRoom(el.roomInput.value || state.roomId);
       el.roomInput.value = state.roomId;
       const name = normalizeName(el.nameInput.value);
       el.nameInput.value = name;
+      const clientKey = ensureClientKey();
       const url = getWsBase() + encodeURIComponent(state.roomId);
-      el.titleStatus.textContent = `接続中: ${url}`;
+
+      if (fromTitle) el.titleStatus.textContent = `接続中: ${url}`;
+      setLobbyStatusSafe(`接続中: ${url}`);
+      showConnectionOverlay("接続中", "同じ席へ接続しています。少しお待ちください。");
+
       const ws = new WebSocket(url);
       state.ws = ws;
-      ws.onopen = () => { state.connected = true; setScreen("lobby"); setLobbyStatus("接続成功。join を送信しました。"); send({ t: "join", name }); };
+      ws.onopen = () => {
+        state.connected = true;
+        state.reconnectAttempt = 0;
+        hideConnectionOverlay();
+        if (fromTitle || !preserveState) setScreen("lobby");
+        setLobbyStatusSafe("接続成功。join を送信しました。");
+        send({ t: "join", name, clientKey });
+      };
       ws.onmessage = event => {
         let message;
-        try { message = JSON.parse(event.data); } catch { setLobbyStatus("サーバーから不正なJSONを受信しました。"); return; }
-        if (message.t === "hello") { state.playerId = message.playerId; setLobbyStatus(`接続ID: ${state.playerId}`); return; }
+        try { message = JSON.parse(event.data); } catch { setLobbyStatusSafe("サーバーから不正なJSONを受信しました。"); return; }
+        if (message.t === "hello") { state.playerId = message.playerId; setLobbyStatusSafe(`接続ID: ${state.playerId}`); return; }
         if (message.t === "state") {
           const previous = state.serverState;
           state.serverState = message.state;
+          state.playerId = message.state.myPlayerId || state.playerId;
           if (state.selectedTileId && !message.state.myHand?.some(tile => tile.id === state.selectedTileId)) state.selectedTileId = null;
           maybeShowStateCutIn(previous, message.state);
           renderByPhase();
+          hideConnectionOverlay();
           return;
         }
         if (message.t === "error") showError(message.message);
       };
-      ws.onerror = () => { el.titleStatus.textContent = "WebSocketエラー。Wranglerが起動中か確認してください。"; setLobbyStatus("WebSocketエラー。Wranglerが起動中か確認してください。"); };
-      ws.onclose = () => { state.connected = false; renderByPhase(); el.titleStatus.textContent = "切断されました。再接続してください。"; };
+      ws.onerror = () => { setLobbyStatusSafe("WebSocketエラー。再接続を試します。"); };
+      ws.onclose = () => handleSocketClosed();
     }
 
-    function disconnect(goTitle = true) { if (state.ws) { try { state.ws.close(); } catch {} } state.ws = null; state.connected = false; state.serverState = null; state.playerId = null; state.selectedTileId = null; state.lastCutInKey = ""; if (goTitle) setScreen("title"); }
+    function handleSocketClosed() {
+      const wasSuppressed = state.suppressNextClose;
+      state.suppressNextClose = false;
+      if (wasSuppressed) return;
+      state.connected = false;
+      renderByPhase();
+      if (state.intentionalClose) return;
+      showConnectionOverlay("接続が切れました", "自動再接続を試しています。戻らない場合は再接続を押してください。");
+      scheduleAutoReconnect();
+    }
+
+    function scheduleAutoReconnect() {
+      clearReconnectTimer();
+      if (state.intentionalClose) return;
+      const delay = Math.min(5000, 1000 + state.reconnectAttempt * 1000);
+      state.reconnectAttempt += 1;
+      state.reconnectTimer = setTimeout(() => reconnectNow(), delay);
+    }
+
+    function disconnect(goTitle = true) {
+      clearReconnectTimer();
+      state.intentionalClose = true;
+      if (state.ws) { try { state.ws.close(); } catch {} }
+      state.ws = null;
+      state.connected = false;
+      state.serverState = null;
+      state.playerId = null;
+      state.selectedTileId = null;
+      state.lastCutInKey = "";
+      hideConnectionOverlay();
+      if (goTitle) setScreen("title");
+    }
     function confirmGoTitle() { if (confirm("タイトルへ戻ります。接続中の部屋から切断されます。よろしいですか？")) disconnect(true); }
     function confirmDisconnect() { if (confirm("接続を切断します。よろしいですか？")) disconnect(true); }
-    function send(payload) { if (!state.ws || state.ws.readyState !== WebSocket.OPEN) { showError("未接続です。"); return false; } state.ws.send(JSON.stringify(payload)); return true; }
+    function send(payload) { if (!state.ws || state.ws.readyState !== WebSocket.OPEN) { showConnectionOverlay("未接続です", "再接続すると同じ席に戻れます。"); return false; } state.ws.send(JSON.stringify(payload)); return true; }
+    function requestSync() { if (!state.connected) { reconnectNow(); return; } send({ t: "sync" }); }
     function getMe() { const s = state.serverState; if (!s || !state.playerId) return null; return s.players.find(p => p.playerId === state.playerId) || null; }
     function isHost() { return Boolean(getMe()?.isHost); }
     function isMyTurn() { const s = state.serverState; return Boolean(s && s.currentPlayerId === state.playerId && s.phase === "play" && !claimWindowActive()); }
     function canRon() { const s = state.serverState; return Boolean(s && s.phase === "play" && s.claimWindow && s.lastDiscarderId && s.lastDiscarderId !== state.playerId && !declaredRon()); }
     function setLobbyStatus(text) { el.lobbyStatus.textContent = text; }
-    function showError(message) { const text = `エラー: ${message}`; setLobbyStatus(text); el.gameStatus.textContent = text; console.error(text); }
+    function setLobbyStatusSafe(text) { if (el.lobbyStatus) el.lobbyStatus.textContent = text; if (el.titleStatus && !state.serverState) el.titleStatus.textContent = text; }
+    function showError(message) { const text = `エラー: ${message}`; setLobbyStatusSafe(text); if (el.gameStatus) el.gameStatus.textContent = text; console.error(text); }
 
-    function renderByPhase() { const s = state.serverState; if (!s) { if (state.connected) setScreen("lobby"); return; } if (s.phase === "lobby") { setScreen("lobby"); renderLobby(); } else { setScreen("game"); renderGame(); } }
+    function renderByPhase() { const s = state.serverState; if (!s) { if (state.connected) setScreen("lobby"); renderConnectionLabels(); return; } if (s.phase === "lobby") { setScreen("lobby"); renderLobby(); } else { setScreen("game"); renderGame(); } }
+    function renderConnectionLabels() { if (el.connectionLabel) el.connectionLabel.textContent = state.connected ? "接続中" : "未接続"; if (el.syncBtn) el.syncBtn.disabled = !state.connected; }
     function renderLobby() {
       const s = state.serverState;
       el.roomLabel.textContent = state.roomId; el.connectionLabel.textContent = state.connected ? "接続中" : "未接続";
@@ -185,13 +262,13 @@
     }
 
     function renderMyDiscardTop() { const s = state.serverState; el.myDiscardTopTiles.innerHTML = ""; const me = getMe(); const discards = me?.discards || []; if (!discards.length) { el.myDiscardTopTiles.textContent = "なし"; return; } discards.forEach((text, index) => { const tile = makeTile({ text, kind: "tile" }, "small"); const isClaimTarget = s.claimWindow && me.playerId === s.lastDiscarderId && index === discards.length - 1 && text === s.lastDiscardTile; if (isClaimTarget) tile.classList.add("claimTarget"); el.myDiscardTopTiles.appendChild(tile); }); }
-    function renderPlayers() { const s = state.serverState; el.players.innerHTML = ""; s.players.forEach(player => { const panel = document.createElement("div"); panel.className = "player"; if (player.playerId === s.currentPlayerId && s.phase === "play") panel.classList.add("turn"); if (player.playerId === state.playerId) panel.classList.add("me"); if (player.playerId === s.matchWinnerId) panel.classList.add("winner"); const header = document.createElement("div"); header.className = "playerHeader"; const badges = []; if (player.playerId === state.playerId) badges.push("自分"); if (player.isHost) badges.push("ホスト"); if (player.isCpu) badges.push("CPU"); if (player.playerId === s.currentPlayerId && s.phase === "play") badges.push("手番"); if (player.playerId === s.matchWinnerId) badges.push("勝利"); if (s.claimWindow?.ronClaimantIds?.includes(player.playerId)) badges.push("ロン宣言"); const sep = player.separatorCount ? ` / 区切り${player.separatorCount}` : ""; header.innerHTML = `<span>${escapeHtml(player.name)} / ${player.score}点 <span class="handInfo">/ 手牌${player.handCount}枚${sep}</span></span><span class="badge">${badges.join(" / ") || "待機"}</span>`; panel.appendChild(header); panel.appendChild(createDiscardSection(player)); el.players.appendChild(panel); }); }
+    function renderPlayers() { const s = state.serverState; el.players.innerHTML = ""; s.players.forEach(player => { const panel = document.createElement("div"); panel.className = "player"; if (player.playerId === s.currentPlayerId && s.phase === "play") panel.classList.add("turn"); if (player.playerId === state.playerId) panel.classList.add("me"); if (player.playerId === s.matchWinnerId) panel.classList.add("winner"); const header = document.createElement("div"); header.className = "playerHeader"; const badges = []; if (player.playerId === state.playerId) badges.push("自分"); if (player.isHost) badges.push("ホスト"); if (player.isCpu) badges.push("CPU"); if (player.playerId === s.currentPlayerId && s.phase === "play") badges.push("手番"); if (player.playerId === s.matchWinnerId) badges.push("勝利"); if (!player.connected) badges.push("切断"); if (s.claimWindow?.ronClaimantIds?.includes(player.playerId)) badges.push("ロン宣言"); const sep = player.separatorCount ? ` / 区切り${player.separatorCount}` : ""; header.innerHTML = `<span>${escapeHtml(player.name)} / ${player.score}点 <span class="handInfo">/ 手牌${player.handCount}枚${sep}</span></span><span class="badge">${badges.join(" / ") || "待機"}</span>`; panel.appendChild(header); panel.appendChild(createDiscardSection(player)); el.players.appendChild(panel); }); }
     function createDiscardSection(player) { const s = state.serverState; const section = document.createElement("div"); section.className = "section"; section.innerHTML = `<div class="sectionTitle">捨て牌</div>`; const row = document.createElement("div"); row.className = "tileRow"; if (!player.discards.length) row.textContent = "なし"; else player.discards.forEach((text, index) => { const tile = makeTile({ text, kind: "tile" }, "small"); const isClaimTarget = s.claimWindow && player.playerId === s.lastDiscarderId && index === player.discards.length - 1 && text === s.lastDiscardTile; if (isClaimTarget) tile.classList.add("claimTarget"); row.appendChild(tile); }); section.appendChild(row); return section; }
 
     function renderMyHand() { const s = state.serverState; const realCount = s.myHand.filter(x => !isSeparator(x)).length; const sepCount = s.myHand.length - realCount; const sepText = sepCount ? ` / 区切り${sepCount}` : ""; const winText = s.winningTileCount ? ` / 上がり${s.winningTileCount}牌` : ""; el.myHandTitle.textContent = `自分の手札 ${realCount}枚${sepText}${winText}`; el.myTurnLabel.textContent = isMyTurn() ? "あなたの手番" : s.phase === "judge" ? "ジャッジ中" : claimWindowActive() ? "受付中" : "待機中"; el.myHand.innerHTML = ""; s.myHand.forEach((tile, index) => { const tileEl = makeTile(tile, "myTile"); if (tile.id === state.selectedTileId) tileEl.classList.add("selected"); tileEl.draggable = true; tileEl.addEventListener("dragstart", event => { state.handDrag = { fromIndex: index }; event.dataTransfer.effectAllowed = "move"; event.dataTransfer.setData("text/plain", String(index)); tileEl.classList.add("dragging"); }); tileEl.addEventListener("dragover", event => { event.preventDefault(); event.dataTransfer.dropEffect = "move"; tileEl.classList.add("dragOver"); }); tileEl.addEventListener("dragleave", () => tileEl.classList.remove("dragOver")); tileEl.addEventListener("drop", event => { event.preventDefault(); tileEl.classList.remove("dragOver"); const fromIndex = Number(event.dataTransfer.getData("text/plain") || state.handDrag?.fromIndex); if (!Number.isFinite(fromIndex) || fromIndex === index) return; send({ t: "reorder_hand", fromIndex, toIndex: index }); }); tileEl.addEventListener("dragend", () => { state.handDrag = null; tileEl.classList.remove("dragging"); }); tileEl.addEventListener("click", () => { state.selectedTileId = tile.id; renderMyHand(); renderGameActions(); }); el.myHand.appendChild(tileEl); }); }
     function selectedIndex() { return state.serverState?.myHand?.findIndex(x => x.id === state.selectedTileId) ?? -1; }
     function moveSelected(offset) { const fromIndex = selectedIndex(); if (fromIndex < 0) { el.gameStatus.textContent = "移動する牌を選んでください。"; return; } const toIndex = fromIndex + offset; if (toIndex < 0 || toIndex >= state.serverState.myHand.length) return; send({ t: "reorder_hand", fromIndex, toIndex }); }
-    function renderGameActions() { const s = state.serverState; const canMove = activeOwnHandControls() && selectedIndex() >= 0; el.discardBtn.disabled = !(isMyTurn() && state.selectedTileId && !selectedIsSeparator()); el.ronBtn.disabled = !canRon(); el.ronBtn.textContent = declaredRon() ? "ロン済" : "ロン"; el.tsumoBtn.disabled = !isMyTurn(); el.nextRoundBtn.disabled = !(isHost() && s.phase === "round_over" && !s.matchWinnerId); el.separatorAddBtn.disabled = !activeOwnHandControls(); el.separatorRemoveBtn.disabled = !(activeOwnHandControls() && selectedIsSeparator()); el.moveLeftBtn.disabled = !canMove || selectedIndex() <= 0; el.moveRightBtn.disabled = !canMove || selectedIndex() >= (s.myHand.length - 1); el.rematchBtn.disabled = !isHost(); el.backLobbyResultBtn.disabled = !isHost(); if (claimWindowActive()) { el.discardBtn.disabled = true; el.tsumoBtn.disabled = true; } }
+    function renderGameActions() { const s = state.serverState; const canMove = activeOwnHandControls() && selectedIndex() >= 0; el.discardBtn.disabled = !(isMyTurn() && state.selectedTileId && !selectedIsSeparator()); el.ronBtn.disabled = !canRon(); el.ronBtn.textContent = declaredRon() ? "ロン済" : "ロン"; el.tsumoBtn.disabled = !isMyTurn(); el.nextRoundBtn.disabled = !(isHost() && s.phase === "round_over" && !s.matchWinnerId); el.separatorAddBtn.disabled = !activeOwnHandControls(); el.separatorRemoveBtn.disabled = !(activeOwnHandControls() && selectedIsSeparator()); el.moveLeftBtn.disabled = !canMove || selectedIndex() <= 0; el.moveRightBtn.disabled = !canMove || selectedIndex() >= (s.myHand.length - 1); el.rematchBtn.disabled = !isHost(); el.backLobbyResultBtn.disabled = !isHost(); el.syncBtn.disabled = !state.connected; if (claimWindowActive()) { el.discardBtn.disabled = true; el.tsumoBtn.disabled = true; } }
 
     function renderJudge() { const s = state.serverState; const show = s.phase === "judge" && s.judge; el.judgePanel.classList.toggle("show", Boolean(show)); if (!show) { el.judgeTitle.textContent = ""; el.judgeHand.innerHTML = ""; el.voteRows.innerHTML = ""; return; } const judge = s.judge; const queueText = judge.ronQueueTotal ? ` (${judge.ronQueueIndex}/${judge.ronQueueTotal})` : ""; el.judgeTitle.textContent = `${playerNameById(judge.claimantId)} / ${judge.claimType}${queueText} / 公開手札`; el.judgeHand.innerHTML = ""; judge.revealedHand.forEach(item => el.judgeHand.appendChild(makeTile(item, ""))); el.voteRows.innerHTML = ""; judge.requiredVoterIds.forEach(voterId => { const row = document.createElement("div"); row.className = "voteRow"; const vote = judge.votes[voterId] || "未投票"; row.innerHTML = `<div>${escapeHtml(playerNameById(voterId))}: ${escapeHtml(vote)}</div>`; const actions = document.createElement("div"); actions.className = "voteActions"; if (voterId === state.playerId) { actions.appendChild(voteButton("上がり", "good")); actions.appendChild(voteButton("異議あり", "blue")); actions.appendChild(voteButton("ダメだろ", "danger")); } else { const wait = document.createElement("span"); wait.textContent = "投票待ち"; actions.appendChild(wait); } row.appendChild(actions); el.voteRows.appendChild(row); }); }
     function voteButton(vote, className) { const btn = document.createElement("button"); btn.className = className; btn.textContent = vote; btn.addEventListener("click", () => { if (vote === "異議あり") showCutIn("異議あり！！", "igi"); send({ t: "judge_vote", vote }); }); return btn; }
@@ -206,10 +283,13 @@
     el.mobileUiToggleLobby.addEventListener("change", () => setMobilePortraitUi(el.mobileUiToggleLobby.checked));
     el.hostBtn.addEventListener("click", connectAs);
     el.joinBtn.addEventListener("click", connectAs);
+    el.reconnectBtn.addEventListener("click", reconnectNow);
+    el.connectionTitleBtn.addEventListener("click", confirmGoTitle);
     el.backTitleBtn.addEventListener("click", confirmGoTitle);
     el.disconnectBtn.addEventListener("click", confirmDisconnect);
     el.titleFromGameBtn.addEventListener("click", confirmGoTitle);
     el.disconnectFromGameBtn.addEventListener("click", confirmDisconnect);
+    el.syncBtn.addEventListener("click", requestSync);
     el.addCpuBtn.addEventListener("click", () => send({ t: "add_cpu" }));
     el.startGameBtn.addEventListener("click", () => send({ t: "start_game" }));
     el.nextRoundBtn.addEventListener("click", () => send({ t: "next_round" }));
@@ -227,8 +307,11 @@
     el.targetScoreInput.addEventListener("change", () => { const score = Math.max(1, Math.min(20, Math.floor(Number(el.targetScoreInput.value) || 3))); el.targetScoreInput.value = String(score); send({ t: "set_target_score", targetScore: score }); });
     el.reactionSecondsInput.addEventListener("change", () => { const seconds = Math.max(1, Math.min(15, Math.floor(Number(el.reactionSecondsInput.value) || 5))); el.reactionSecondsInput.value = String(seconds); send({ t: "set_reaction_seconds", reactionSeconds: seconds }); });
     el.nameInput.addEventListener("change", () => { const name = normalizeName(el.nameInput.value); el.nameInput.value = name; if (state.connected) send({ t: "set_name", name }); });
+    window.addEventListener("online", () => { if (!state.connected && !state.intentionalClose) reconnectNow(); });
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && state.connected) requestSync(); });
     loadMobilePortraitUi();
     applyUrlParams();
+    ensureClientKey();
   </script>
 </body>
 </html>
